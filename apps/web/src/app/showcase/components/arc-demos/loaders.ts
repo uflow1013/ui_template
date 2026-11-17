@@ -1,8 +1,6 @@
-import type { ComponentType } from "react";
+import type { DemoLoader } from "../example-types";
 
-type DemoLoader = () => Promise<{ default: ComponentType }>;
-
-export const arcDemoLoaders: Readonly<Record<string, DemoLoader>> = {
+export const arcDemoLoaders: Readonly<Partial<Record<string, DemoLoader>>> = {
   "action-swap": () => import("./actions").then((module) => ({ default: module.ActionSwapDemo })),
   "action-button": () => import("./actions").then((module) => ({ default: module.ActionButtonDemo })),
   "split-button": () => import("./actions").then((module) => ({ default: module.SplitButtonDemo })),

@@ -54,7 +54,8 @@ function applyTheme() {
     else root.style.setProperty(key, value);
   }
   root.classList.toggle("dark", state.activeId === "night");
-  root.dataset.theme = state.activeId;
+  root.dataset.theme = style.colorScheme;
+  root.dataset.themeId = state.activeId;
 }
 
 function update(patch: Partial<ThemeState>) {

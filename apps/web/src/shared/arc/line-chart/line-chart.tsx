@@ -77,7 +77,7 @@ const fadeFast = { duration: duration.instant, ease: [...ease.standard] } as con
 
 /** Room above the top gridline, and the gap between the crosshair and its tooltip. */
 const TOP = 12, GAP = 14;
-const PALETTE = ["var(--arc-series-1)", "var(--arc-series-2)", "var(--arc-series-3)"];
+const PALETTE = ["var(--series-1)", "var(--series-2)", "var(--series-3)"];
 const grouped = new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 });
 const compact = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
 const clamp = (value: number, low: number, high: number) => Math.min(high, Math.max(low, value));

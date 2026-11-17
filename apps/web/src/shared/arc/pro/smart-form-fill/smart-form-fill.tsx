@@ -605,11 +605,18 @@ export function SmartFormFill({
                     value={value}
                     data-flash={count ? (count % 2 ? "a" : "b") : undefined}
                     aria-invalid={info?.state === "review" || undefined}
-                    aria-description={info ? info.state === "review" ? `Filled by AI with ${pct}% confidence, needs review${info.note ? `: ${info.note}` : ""}` : info.state === "edited" ? "Edited after filling" : `Filled by AI with ${pct}% confidence` : undefined}
+                    aria-describedby={info ? `${inputId}-description` : undefined}
                     onChange={(event) => edit(field.id, event.target.value)}
                     onFocus={() => info && setActive(field.id)}
                     onBlur={() => setActive((current) => current === field.id ? null : current)}
                   />
+                  {info && (
+                    <span id={`${inputId}-description`} className={styles.srOnly}>
+                      {info.state === "review"
+                        ? `Filled by AI with ${pct}% confidence, needs review${info.note ? `: ${info.note}` : ""}`
+                        : info.state === "edited" ? "Edited after filling" : `Filled by AI with ${pct}% confidence`}
+                    </span>
+                  )}
                   <AnimatePresence initial={false}>
                     {info?.state === "review" ? (
                       <motion.button

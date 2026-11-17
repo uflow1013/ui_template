@@ -162,9 +162,9 @@ export function WaffleChart({ data, label, unit = "", formatValue, rows = 10, co
     const index = data.findIndex(item => item.key === key), item = data[index];
     if (!item) return "transparent";
     if (item.color) return item.color;
-    if (key === accent) return "var(--arc-series-1)";
+    if (key === accent) return "var(--series-1)";
     const rank = data.filter(entry => entry.key !== accent).findIndex(entry => entry.key === key);
-    return rank < 3 ? `var(--arc-series-${rank + 2})` : `color-mix(in oklab, var(--arc-foreground) ${SHADES[(rank - 3) % SHADES.length]}%, var(--arc-surface))`;
+    return rank < 3 ? `var(--series-${rank + 2})` : `color-mix(in oklab, var(--foreground) ${SHADES[(rank - 3) % SHADES.length]}%, var(--surface))`;
   };
 
   const shapeOf = (key: string | null) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/arc/button/button";
 import { Check, CheckCheck, Pencil } from "lucide-react";
 import { useColorWorkbench } from "./color-workbench-context";
 

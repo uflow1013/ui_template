@@ -236,8 +236,8 @@ export function FileDropzone({ accept, multiple = true, maxFiles = 5, onFilesCha
   const pointerX = useMotionValue(50), pointerY = useMotionValue(50);
   const glowSpring = { stiffness: 260, damping: 32, mass: .8 };
   const glowX = useSpring(pointerX, glowSpring), glowY = useSpring(pointerY, glowSpring);
-  const edgeLight = useMotionTemplate`radial-gradient(180px circle at ${glowX}% ${glowY}%, var(--arc-accent), transparent 70%)`;
-  const washLight = useMotionTemplate`radial-gradient(260px circle at ${glowX}% ${glowY}%, color-mix(in oklab, var(--arc-accent) 6%, transparent), transparent 70%)`;
+  const edgeLight = useMotionTemplate`radial-gradient(180px circle at ${glowX}% ${glowY}%, var(--accent), transparent 70%)`;
+  const washLight = useMotionTemplate`radial-gradient(260px circle at ${glowX}% ${glowY}%, color-mix(in oklab, var(--accent) 6%, transparent), transparent 70%)`;
   const track = (event: DragEvent) => {
     const zone = zoneRef.current;
     if (!zone) return;

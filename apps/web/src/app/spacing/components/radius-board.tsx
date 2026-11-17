@@ -1,4 +1,4 @@
-import { Icon } from "@/shared/ui/icon";
+import { Icon } from "@/shared/lib/icon";
 
 export function RadiusBoard() {
   return (

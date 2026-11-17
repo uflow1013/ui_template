@@ -38,7 +38,7 @@
   opacity: 0;
   pointer-events: none;
   touch-action: none;
-  transition: opacity var(--arc-duration-considered) var(--arc-ease-standard);
+  transition: opacity var(--duration-considered) var(--ease-standard);
 }
 .track[data-axis="y"] { top: 3px; right: 1px; bottom: 3px; width: 11px; }
 .track[data-axis="x"] { right: 3px; bottom: 1px; left: 3px; height: 11px; }
@@ -52,9 +52,9 @@
 .thumb::after {
   content: "";
   position: absolute;
-  border-radius: var(--arc-radius-pill);
-  background: color-mix(in oklab, var(--arc-foreground) 30%, transparent);
-  transition: width var(--arc-duration-fast) var(--arc-ease-standard), height var(--arc-duration-fast) var(--arc-ease-standard), background-color var(--arc-duration-fast) var(--arc-ease-standard);
+  border-radius: var(--radius-pill);
+  background: color-mix(in oklab, var(--foreground) 30%, transparent);
+  transition: width var(--duration-fast) var(--ease-standard), height var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard);
 }
 .track[data-axis="y"] .thumb::after { top: 0; right: 3px; bottom: 0; width: 5px; }
 .track[data-axis="x"] .thumb::after { right: 0; bottom: 3px; left: 0; height: 5px; }
@@ -62,12 +62,12 @@
 /* Visible while scrolling, while the pointer is over the area, and always when asked. Appearing is quick; leaving lingers. */
 .root[data-scrolling] > .track,
 .root[data-dragging] > .track,
-.root[data-scrollbars="always"] > .track { opacity: 1; pointer-events: auto; transition-duration: var(--arc-duration-fast); }
+.root[data-scrollbars="always"] > .track { opacity: 1; pointer-events: auto; transition-duration: var(--duration-fast); }
 
 @media (hover: hover) and (pointer: fine) {
-  .root:hover > .track { opacity: 1; pointer-events: auto; transition-duration: var(--arc-duration-fast); }
+  .root:hover > .track { opacity: 1; pointer-events: auto; transition-duration: var(--duration-fast); }
   .track:hover .thumb::after,
-  .root[data-dragging] .thumb::after { background: color-mix(in oklab, var(--arc-foreground) 46%, transparent); }
+  .root[data-dragging] .thumb::after { background: color-mix(in oklab, var(--foreground) 46%, transparent); }
   .track[data-axis="y"]:hover .thumb::after,
   .root[data-dragging="y"] .track[data-axis="y"] .thumb::after { width: 7px; right: 2px; }
   .track[data-axis="x"]:hover .thumb::after,

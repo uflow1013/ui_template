@@ -62,17 +62,17 @@
   align-items: center;
   height: 100%;
   padding: 0 44px 0 13px;
-  border: 1px solid var(--arc-border);
-  border-radius: var(--arc-radius-control);
-  background: var(--arc-surface-raised);
-  color: var(--arc-foreground);
-  box-shadow: var(--arc-shadow-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--surface-raised);
+  color: var(--foreground);
+  box-shadow: var(--shadow-raised);
   transition: box-shadow 160ms ease-out, background-color 120ms ease-out;
 }
 .item[data-front] .card,
-.root[data-expanded] .card { box-shadow: var(--arc-shadow-floating); }
+.root[data-expanded] .card { box-shadow: var(--shadow-floating); }
 
-.card[data-selectable]:hover { background: color-mix(in oklab, var(--arc-surface-raised), var(--arc-foreground) 3%); }
+.card[data-selectable]:hover { background: color-mix(in oklab, var(--surface-raised), var(--foreground) 3%); }
 
 .content {
   display: flex;
@@ -93,21 +93,21 @@
   height: 36px;
   overflow: hidden;
   border-radius: 999px;
-  background: var(--arc-surface-muted);
-  color: var(--arc-foreground);
+  background: var(--surface-muted);
+  color: var(--foreground);
 }
 .visual::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--arc-foreground) 9%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--foreground) 9%, transparent);
   pointer-events: none;
 }
 .visual img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .visual svg { width: 18px; height: 18px; }
 
-.initials { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--arc-text-secondary); }
+.initials { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--text-secondary); }
 
 .text {
   display: flex;
@@ -120,11 +120,11 @@
   overflow: hidden;
   font-size: 14px;
   line-height: 20px;
-  color: var(--arc-text-secondary);
+  color: var(--text-secondary);
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.name { font-weight: 500; color: var(--arc-foreground); }
+.name { font-weight: 500; color: var(--foreground); }
 
 .meta {
   display: flex;
@@ -133,7 +133,7 @@
   min-width: 0;
   font-size: 12px;
   line-height: 16px;
-  color: var(--arc-text-muted);
+  color: var(--text-muted);
   white-space: nowrap;
 }
 .metaText { overflow: hidden; min-width: 0; text-overflow: ellipsis; }
@@ -145,9 +145,9 @@
   align-items: center;
   gap: 4px;
   flex: none;
-  color: var(--arc-text-secondary);
+  color: var(--text-secondary);
 }
-.verified svg { flex: none; color: var(--arc-accent); }
+.verified svg { flex: none; color: var(--accent); }
 
 .hit {
   position: absolute;
@@ -174,14 +174,14 @@
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: var(--arc-text-muted);
+  color: var(--text-muted);
   cursor: pointer;
   opacity: 0;
   transition: opacity 120ms ease-out, background-color 120ms ease-out, color 120ms ease-out, scale 120ms ease-out;
 }
 .item:hover .dismiss,
 .dismiss:focus-visible { opacity: 1; }
-.dismiss:hover { background: var(--arc-surface-muted); color: var(--arc-foreground); }
+.dismiss:hover { background: var(--surface-muted); color: var(--foreground); }
 .dismiss:active { scale: .9; }
 @media (hover: none) { .dismiss { opacity: 1; } }
 

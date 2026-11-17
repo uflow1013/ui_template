@@ -1,30 +1,25 @@
-import { WorkspacePreview } from "./workspace-preview";
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { WorkspacePreview } from "./workspace-preview";
 
 export function HomePreview() {
   return (
-    <div className="pt-8 border-t border-t-[var(--ds-color-line)]">
-      <div className="flex items-end justify-between mb-5 gap-4 max-[42rem]:items-start">
-        <div>
-          <span className="text-[var(--ds-color-muted)] text-[length:var(--type-size-xs)]">
-            落在真实界面里
-          </span>
-          <h2 className="mt-1 mb-0 text-[length:var(--type-size-xl)] font-[number:var(--type-weight-semibold)] tracking-[var(--type-tracking-tight)] leading-[var(--type-line-heading)] mx-0 max-[42rem]:text-[length:var(--type-size-lg)]">
-            一眼看见规则如何协作
-          </h2>
-        </div>
-        <Link href="/orchestratelq" className="inline-flex flex-none items-center border border-[var(--ds-color-line)] rounded-[var(--ds-radius-pill)] bg-[var(--ds-color-surface)] text-[var(--ds-color-muted)] text-[length:var(--type-size-xs)] py-2 px-3 gap-2 transition-colors hover:border-[var(--ds-color-accent)] hover:text-[var(--ds-color-accent-ink)] max-[42rem]:text-[length:0] max-[42rem]:p-2">
-          <span className="w-1.5 h-1.5 bg-[var(--ds-color-success)] max-[42rem]:w-2 max-[42rem]:h-2" />
-          打开系统工作台
-          <ArrowUpRight className="size-3.5" />
+    <section aria-labelledby="workspace-preview-title" className="grid gap-5 border-t border-border pt-7 md:pt-8">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2
+          className="text-[length:var(--text-2xl)] leading-[1.2] font-medium tracking-[-0.025em] text-foreground"
+          id="workspace-preview-title"
+        >
+          工作台示例
+        </h2>
+        <Link
+          className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-control)] pr-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:text-foreground"
+          href="/orchestratelq"
+        >
+          打开系统工作台 <ArrowUpRight aria-hidden="true" size={15} />
         </Link>
       </div>
       <WorkspacePreview />
-      <div className="flex justify-between mt-3 text-[var(--ds-color-muted)] text-[length:var(--type-size-xs)] gap-3 max-[30rem]:text-[length:var(--type-size-xs)]">
-        <span>主题应用示例</span>
-        <span>颜色 · 字体 · 间距 · 状态</span>
-      </div>
-    </div>
+    </section>
   );
 }

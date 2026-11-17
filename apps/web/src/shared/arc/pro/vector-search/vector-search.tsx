@@ -118,7 +118,7 @@ const DEFAULT_DOCUMENTS: VectorSearchDocument[] = [
   { title: "Deploy hooks", topic: 2 },
 ];
 const DEFAULT_QUERY = "How do I rotate a leaked API key?";
-const SERIES = ["var(--arc-series-2)", "var(--arc-series-3)", "var(--arc-series-4)", "color-mix(in oklab, var(--arc-series-2) 50%, var(--arc-series-4))"];
+const SERIES = ["var(--series-2)", "var(--series-3)", "var(--series-4)", "color-mix(in oklab, var(--series-2) 50%, var(--series-4))"];
 /** Topic centers on the plane, in the -1 to 1 space, laid out per topic count so the clusters balance around the middle. */
 const LAYOUTS: Record<number, Pt[]> = {
   2: [{ x: -0.45, y: 0.45 }, { x: 0.45, y: -0.45 }],
@@ -598,7 +598,7 @@ export function VectorSearch({
       text(e.readoutText, showing >= 0 ? list[showing].title : "");
       put(e.caret, "data-on", "false");
       put(e.readout, "data-kind", "doc");
-      put(e.readout, "--c", showing >= 0 ? `var(--vs-t${list[showing].topic})` : "var(--arc-text-muted)");
+      put(e.readout, "--c", showing >= 0 ? `var(--vs-t${list[showing].topic})` : "var(--text-muted)");
       const vec = showing >= 0 ? tl.vectors[showing] : null;
       for (let b = 0; b < BARS; b++) put(e.bars[b], "--v", (vec ? vec[b] * (u < tl.S1 ? 1 : 0.9) : 0).toFixed(3));
     }
@@ -801,7 +801,7 @@ export function VectorSearch({
   const aria = label ?? `Vector search. ${docs.length} documents are embedded as points on a plane, where similar documents land close together in ${topics.length} clusters: ${topicList}. The index links each point to its nearest neighbours. The query "${query}" is embedded into the same space and lands near ${topicName(top?.topic ?? 0)}. The search hops ${timeline.hops} times along the links to reach it, and the ${timeline.k} nearest documents are returned with their similarity: ${matches}.`;
 
   const g: Geometry | null = geometry;
-  const colorVars: Record<string, string> = { "--vs-accent": accent ?? "var(--arc-accent)" };
+  const colorVars: Record<string, string> = { "--vs-accent": accent ?? "var(--accent)" };
   topics.forEach((t, i) => { colorVars[`--vs-t${i}`] = t.color ?? SERIES[i]; });
   const rootStyle = { ...style, ...colorVars } as CSSProperties;
   const focusTopic = focus ? (focus.kind === "topic" ? focus.index : docs[focus.index]?.topic ?? -1) : -1;

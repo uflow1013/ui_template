@@ -341,7 +341,7 @@ export const BlackHole = forwardRef<BlackHoleHandle, BlackHoleProps>(function Bl
     const ox = ((options.origin?.x ?? (left + right) / 2) - rect.left) * dpr, oy = ((options.origin?.y ?? (top + bottom) / 2) - rect.top) * dpr;
     const maxR = Math.max(...boxes.flatMap(b => [[b.left, b.top], [b.right, b.top], [b.left, b.bottom], [b.right, b.bottom]].map(([x, y]) => Math.hypot((x - rect.left) * dpr - ox, (y - rect.top) * dpr - oy)))) || 1;
     const dark = document.documentElement.classList.contains("dark");
-    const accent = rgbOf(getComputedStyle(root).getPropertyValue("--arc-accent").trim(), dark ? [1, 1, 1] : [0, 0, 0]);
+    const accent = rgbOf(getComputedStyle(root).getPropertyValue("--accent").trim(), dark ? [1, 1, 1] : [0, 0, 0]);
 
     const grid = gridBuffer(gl, W, H, 5 * dpr);
     const scene: Scene = { ...base!, grid: grid.buffer, gridCount: grid.count, rest: texture(gl, restCanvas), sel: texture(gl, selCanvas) };

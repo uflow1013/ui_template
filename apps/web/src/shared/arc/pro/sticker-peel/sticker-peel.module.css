@@ -57,5 +57,5 @@
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* On dark surfaces pure white glares; a softer white reads as the same paper. */
-:global(:root[data-theme="night"]) .front { background: oklch(94% 0 0); }
-:global(:root[data-theme="night"]) .back { background: oklch(91% .002 85); }
+:global(:root[data-theme="dark"]) .front { background: oklch(94% 0 0); }
+:global(:root[data-theme="dark"]) .back { background: oklch(91% .002 85); }

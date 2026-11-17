@@ -1,7 +1,8 @@
 "use client";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/arc/popover/popover";
-import { Button } from "@/shared/ui/button";
+import { Skeleton } from "@/shared/arc/skeleton/skeleton";
+import { Button } from "@/shared/arc/button/button";
 import { ArrowUpRight, BookOpen, Check, CodeXml, Copy, Ellipsis } from "lucide-react";
 import { useEffect, useId, useRef, useState, type ComponentType } from "react";
 import type { ComponentExample, DemoLoader } from "./example-types";
@@ -72,7 +73,7 @@ function LiveDemo({ load }: { load: DemoLoader }) {
         <div className="flex flex-wrap items-center gap-2 text-sm text-[var(--ds-color-muted)]">
           <p role="alert">预览加载失败。</p>
           <Button
-            size="xs"
+            size="sm"
             variant="ghost"
             onClick={() => {
               setDemo(undefined);
@@ -85,7 +86,7 @@ function LiveDemo({ load }: { load: DemoLoader }) {
       ) : Demo ? (
         <Demo />
       ) : (
-        <p className="text-xs text-[var(--ds-color-muted)]">正在加载预览…</p>
+        <Skeleton className="w-full max-w-48" label="正在加载预览" lines={2} />
       )}
     </div>
   );
@@ -103,7 +104,8 @@ export function ComponentPreview({ example }: { example: ComponentExample }) {
   const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
   const [showImport, setShowImport] = useState(false);
   const importId = useId();
-  const source = example.source === "shadcn" ? "shadcn/ui" : example.tier ? "Arc Pro" : "Arc UI";
+  const source = example.tier ? "Arc Pro" : "Arc UI";
+  const hasDemo = Boolean(example.loadDemo);
 
   useEffect(() => {
     if (copyState !== "copied") return;
@@ -125,9 +127,10 @@ export function ComponentPreview({ example }: { example: ComponentExample }) {
     <article
       className={`grid min-w-0 gap-4 border-t border-border/40 pt-4 @min-[39rem]:row-span-2 @min-[39rem]:grid-rows-subgrid @min-[39rem]:gap-y-4 ${sizeClasses[example.size ?? "compact"]}`}
       id={example.id}
+      data-source="arc"
+      data-preview={hasDemo ? "interactive" : "reference"}
       tabIndex={-1}
       aria-labelledby={`${example.id}-title`}
-      data-source={example.source}
     >
       <header className="flex min-w-0 items-start justify-between gap-3">
         <div className="min-w-0">
@@ -141,31 +144,35 @@ export function ComponentPreview({ example }: { example: ComponentExample }) {
         <Popover onOpenChange={(open) => { if (!open) setShowImport(false); }}>
           <PopoverTrigger
             className="-mt-1 inline-grid size-8 shrink-0 place-items-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground"
-            title="示例操作"
-            aria-label={`${example.title}示例操作`}
+            title="组件操作"
+            aria-label={`${example.title}组件操作`}
           >
             <Ellipsis className="size-4" aria-hidden="true" />
           </PopoverTrigger>
-          <PopoverContent align="end" className={showImport ? "w-80" : "w-48"} aria-label={`${example.title}示例操作`}>
-            <a className={actionClassName} href={example.docs} target="_blank" rel="noreferrer">
-              <BookOpen aria-hidden="true" />
-              官方文档
-              <ArrowUpRight className="ml-auto text-muted-foreground" aria-hidden="true" />
-            </a>
-            <button
+          <PopoverContent align="end" className={showImport ? "w-80 max-w-[calc(100vw-2rem)]" : "w-48"} aria-label={`${example.title}组件操作`}>
+            {example.docs && (
+              <a className={actionClassName} href={example.docs} target="_blank" rel="noreferrer">
+                <BookOpen aria-hidden="true" />
+                官方文档
+                <ArrowUpRight className="ml-auto text-muted-foreground" aria-hidden="true" />
+              </a>
+            )}
+            <Button
               type="button"
-              className={actionClassName}
+              variant="ghost"
+              size="sm"
+              className="w-full justify-start!"
               aria-expanded={showImport}
               aria-controls={importId}
               onClick={() => setShowImport((visible) => !visible)}
             >
               <CodeXml aria-hidden="true" />
               {showImport ? "收起引用" : "查看引用"}
-            </button>
-            <button type="button" className={actionClassName} onClick={copyImport}>
+            </Button>
+            <Button type="button" variant="ghost" size="sm" className="w-full justify-start!" onClick={copyImport}>
               {copyState === "copied" ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
               {copyState === "copied" ? "已复制" : "复制引用"}
-            </button>
+            </Button>
             <span className="sr-only" role="status">
               {copyState === "copied" ? `${example.name} 引用已复制` : ""}
             </span>
@@ -183,7 +190,14 @@ export function ComponentPreview({ example }: { example: ComponentExample }) {
         </Popover>
       </header>
 
-      <LiveDemo load={example.loadDemo} />
+      {example.loadDemo ? (
+        <LiveDemo load={example.loadDemo} />
+      ) : (
+        <div className="grid min-w-0 content-start gap-2 text-sm">
+          <p className="text-[var(--text-secondary)]">{example.description}</p>
+          <p className="text-xs text-muted-foreground">暂无交互示例</p>
+        </div>
+      )}
     </article>
   );
 }

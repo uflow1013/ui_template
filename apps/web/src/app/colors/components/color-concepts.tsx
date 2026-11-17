@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/shared/arc/button/button";
 import { getThemeConcepts, themeStyle } from "@template/design-tokens/themes";
 import { Check, Pencil } from "lucide-react";
 import { type CSSProperties } from "react";
@@ -29,13 +30,13 @@ export function ColorConcepts() {
             aria-label={`${theme.name}的颜色概念`}
           >
             <div className="flex items-center flex-wrap justify-between border-b border-b-[var(--matrix-line)] bg-[color-mix(in_oklab,_var(--theme-surface-secondary)_35%,_var(--card))] p-4 gap-1.5 max-[1100px]:py-3.5 max-[1100px]:px-3 max-[767px]:p-4">
-              <button
-                className="inline-flex items-center bg-transparent border-0 text-[var(--foreground)] text-[length:.8125rem] font-medium cursor-pointer p-0 gap-2"
+              <Button type="button" variant="ghost"
+                size="sm"
                 onClick={() => chooseTheme(theme.id)}
               >
                 {theme.name}
                 {theme.id === activeId && <Check size={12} />}
-              </button>
+              </Button>
               <span className="text-[var(--muted-foreground)] text-[length:.625rem]">
                 {concepts.length} 个独立颜色
               </span>
@@ -48,8 +49,8 @@ export function ColorConcepts() {
                 const primary = roles[0];
                 const usage = roles.map((role) => role.usage).join("；");
                 return (
-                  <button
-                    className="group/conceptColor flex items-start w-full min-w-0 border-0 border-b border-b-[var(--matrix-line)] bg-transparent text-[var(--foreground)] text-left cursor-pointer [transition:background_.15s] p-4 gap-3 last:border-b-0 hover:bg-[color-mix(in_oklab,_var(--theme-surface-secondary)_45%,_var(--card))] max-[1100px]:py-3.5 max-[1100px]:px-3 max-[1100px]:gap-2 max-[767px]:p-4 max-[767px]:gap-3"
+                  <Button type="button" variant="ghost"
+                    className="group/conceptColor w-full min-w-0 justify-start! overflow-hidden rounded-none! border-0! border-b! border-b-[var(--matrix-line)]! p-3! text-left last:border-b-0!"
                     key={primary.key}
                     data-theme-scope={theme.id}
                     style={
@@ -66,7 +67,7 @@ export function ColorConcepts() {
                         style={{ "--paint-color": value } as CSSProperties}
                       />
                     </span>
-                    <span className="flex flex-1 min-w-0 flex-col gap-1">
+                    <span className="flex min-w-0 max-w-40 flex-col gap-1 whitespace-normal">
                       <strong className="flex items-center flex-wrap text-[length:.75rem] font-medium leading-[1.5] gap-1.5">
                         {primary.name}
                         {roles.length > 1 && (
@@ -86,7 +87,7 @@ export function ColorConcepts() {
                       className="text-[var(--muted-foreground)] ml-auto shrink-0 opacity-0 mt-0.75 group-hover/conceptColor:opacity-100 group-focus-visible/conceptColor:opacity-100"
                       size={12}
                     />
-                  </button>
+                  </Button>
                 );
               })}
             </div>

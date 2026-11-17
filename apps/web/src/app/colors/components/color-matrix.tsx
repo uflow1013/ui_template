@@ -1,7 +1,7 @@
 "use client";
 
 import { allTokens } from "@template/design-tokens/themes";
-import { Palette } from "lucide-react";
+import SegmentedControl from "@/shared/arc/segmented-control/segmented-control";
 import { ColorConcepts } from "./color-concepts";
 import { ColorFilters } from "./color-filters";
 import { ColorTable } from "./color-table";
@@ -29,27 +29,15 @@ export function ColorMatrix() {
               {foundCount} / {allTokens.length} 个角色
             </span>
           )}
-          <div
-            className="inline-flex shrink-0 items-center border border-[var(--matrix-outline)] rounded-[.625rem] bg-[color-mix(in_oklab,_var(--theme-surface-secondary)_55%,_var(--card))] p-0.75 gap-0.5 max-[767px]:ml-auto"
-            role="group"
-            aria-label="矩阵视图"
-          >
-            <button
-              className="inline-flex items-center justify-center border-0 rounded-[.4375rem] bg-transparent text-[var(--muted-foreground)] text-[length:.6875rem] whitespace-nowrap cursor-pointer py-1.5 px-2.5 gap-1.5 aria-pressed:bg-[var(--card)] aria-pressed:text-[var(--foreground)] aria-pressed:shadow-[0_1px_3px_var(--matrix-line)]"
-              aria-pressed={!conceptView}
-              onClick={() => setConceptView(false)}
-            >
-              功能角色
-            </button>
-            <button
-              className="inline-flex items-center justify-center border-0 rounded-[.4375rem] bg-transparent text-[var(--muted-foreground)] text-[length:.6875rem] whitespace-nowrap cursor-pointer py-1.5 px-2.5 gap-1.5 aria-pressed:bg-[var(--card)] aria-pressed:text-[var(--foreground)] aria-pressed:shadow-[0_1px_3px_var(--matrix-line)]"
-              aria-pressed={conceptView}
-              onClick={() => setConceptView(true)}
-            >
-              <Palette size={13} />
-              颜色概念
-            </button>
-          </div>
+          <SegmentedControl
+            label="矩阵视图"
+            options={[
+              { value: "roles", label: "功能角色" },
+              { value: "concepts", label: "颜色概念" },
+            ]}
+            value={conceptView ? "concepts" : "roles"}
+            onValueChange={(value) => setConceptView(value === "concepts")}
+          />
         </div>
       </div>
       {conceptView ? (

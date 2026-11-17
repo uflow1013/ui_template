@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/shared/arc/button/button";
 import { ChevronRight } from "lucide-react";
 import { useEffect, useState, type MouseEvent } from "react";
 import { componentExamples, componentGroups } from "./component-registry";
@@ -65,16 +66,18 @@ export function ShowcaseNavigation() {
               >
                 {group.name}
               </a>
-              <button
+              <Button
                 type="button"
-                className="group grid size-9 shrink-0 cursor-pointer place-items-center rounded-md hover:bg-[var(--ds-color-accent-soft)] hover:text-[var(--ds-color-accent-ink)] aria-expanded:text-[var(--ds-color-accent-ink)]"
+                variant="ghost"
+                size="sm"
+                className="group size-11 shrink-0"
                 aria-expanded={isExpanded}
                 aria-controls={`showcase-navigation-list-${group.id}`}
                 aria-label={`${isExpanded ? "收起" : "展开"}${group.name}组件`}
                 onClick={() => setExpandedGroup(isExpanded ? null : group.id)}
               >
                 <ChevronRight aria-hidden="true" className="size-3.5 group-aria-expanded:rotate-90" />
-              </button>
+              </Button>
             </li>
           );
         })}

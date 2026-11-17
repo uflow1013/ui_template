@@ -1,6 +1,6 @@
 .root {
-  --ir-accent: var(--arc-accent);
-  --ir-radius: var(--arc-radius-panel);
+  --ir-accent: var(--accent);
+  --ir-radius: var(--radius-panel);
   --ir-inset: 12px;
   --ir-chip-h: 28px;
   --ir-font: 13px;
@@ -12,8 +12,8 @@
   border-radius: var(--ir-radius);
   overflow: hidden;
   isolation: isolate;
-  background: var(--arc-surface-muted);
-  color: var(--arc-foreground);
+  background: var(--surface-muted);
+  color: var(--foreground);
   contain: layout paint;
 }
 
@@ -23,13 +23,13 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--arc-foreground) 7%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--foreground) 7%, transparent);
   pointer-events: none;
   z-index: 3;
 }
 
 .sm {
-  --ir-radius: var(--arc-radius-control);
+  --ir-radius: var(--radius-control);
   --ir-inset: 8px;
   --ir-chip-h: 24px;
   --ir-font: 12px;
@@ -38,7 +38,7 @@
 }
 
 .lg {
-  --ir-radius: var(--arc-radius-surface);
+  --ir-radius: var(--radius-surface);
   --ir-inset: 16px;
   --ir-chip-h: 32px;
   --ir-font: 14px;
@@ -72,13 +72,13 @@
   block-size: var(--ir-chip-h);
   max-inline-size: calc(100% - var(--ir-inset) * 2);
   overflow: hidden;
-  border: 1px solid color-mix(in oklab, var(--arc-foreground) 8%, transparent);
+  border: 1px solid color-mix(in oklab, var(--foreground) 8%, transparent);
   border-radius: 999px;
-  background: color-mix(in oklab, var(--arc-surface) 72%, transparent);
+  background: color-mix(in oklab, var(--surface) 72%, transparent);
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
   backdrop-filter: blur(16px) saturate(1.4);
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 4px 12px rgb(0 0 0 / 0.06);
-  color: var(--arc-foreground);
+  color: var(--foreground);
   will-change: transform, opacity;
 }
 
@@ -119,7 +119,7 @@
 }
 
 .count {
-  color: var(--arc-text-secondary);
+  color: var(--text-secondary);
   font-weight: 400;
 }
 
@@ -135,7 +135,7 @@
 }
 
 .ringTrack {
-  stroke: color-mix(in oklab, var(--arc-foreground) 14%, transparent);
+  stroke: color-mix(in oklab, var(--foreground) 14%, transparent);
 }
 
 .ringArc {
@@ -160,7 +160,7 @@
   flex: none;
   inline-size: var(--ir-ring);
   block-size: var(--ir-ring);
-  color: var(--arc-foreground);
+  color: var(--foreground);
 }
 
 .errorLayer {
@@ -190,7 +190,7 @@
   align-items: center;
   gap: 6px;
   max-inline-size: 100%;
-  color: var(--arc-text-secondary);
+  color: var(--text-secondary);
   font-size: var(--ir-font);
   line-height: 1.35;
 }
@@ -205,7 +205,7 @@
   flex: none;
   inline-size: 16px;
   block-size: 16px;
-  color: var(--arc-text-secondary);
+  color: var(--text-secondary);
 }
 
 .sm .errorIcon {

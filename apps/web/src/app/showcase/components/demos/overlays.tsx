@@ -17,18 +17,7 @@ import { Input } from "@/shared/arc/input/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/arc/popover/popover";
 import { Switch } from "@/shared/arc/switch/switch";
 import { Tooltip } from "@/shared/arc/tooltip/tooltip";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/shared/ui/alert-dialog";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/arc/button/button";
 import { ChevronDown, Settings, Star, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { row, useNotify } from "./demo-utils";
@@ -39,7 +28,7 @@ export function DialogDemo() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">编辑项目</Button>
+        <Button variant="secondary">编辑项目</Button>
       </DialogTrigger>
       <DialogContent
         title="编辑项目"
@@ -57,7 +46,7 @@ export function DialogDemo() {
           <Input label="项目名称" defaultValue="澄光品牌焕新" />
           <div className="flex justify-end gap-2">
             <DialogClose asChild>
-              <Button variant="outline">取消</Button>
+              <Button variant="secondary">取消</Button>
             </DialogClose>
             <Button type="submit">保存修改</Button>
           </div>
@@ -67,45 +56,12 @@ export function DialogDemo() {
   );
 }
 
-export function AlertDialogDemo() {
-  const [open, setOpen] = useState(false);
-  const notify = useNotify();
-  return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger render={<Button variant="destructive" />}>
-        <Trash2 />
-        移除示例项目
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>确认移除这个项目？</AlertDialogTitle>
-          <AlertDialogDescription>
-            这是确认弹窗的交互演示，确认后会显示一条反馈消息。
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>取消</AlertDialogCancel>
-          <AlertDialogAction
-            variant="destructive"
-            onClick={() => {
-              setOpen(false);
-              notify("已演示移除项目");
-            }}
-          >
-            确认移除
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
-}
-
 export function SheetDemo() {
   const notify = useNotify();
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline">
+        <Button variant="secondary">
           <Settings />
           打开侧边面板
         </Button>
@@ -158,7 +114,7 @@ export function PopoverDemo() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">
+        <Button variant="secondary">
           显示偏好
           <ChevronDown />
         </Button>
@@ -179,7 +135,7 @@ export function TooltipDemo() {
   return (
     <div className={row}>
       <Tooltip content="将项目加入收藏">
-        <Button variant="outline" size="icon" aria-label="收藏提示">
+        <Button variant="secondary" size="sm" aria-label="收藏提示">
           <Star />
         </Button>
       </Tooltip>

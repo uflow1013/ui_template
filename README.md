@@ -1,6 +1,6 @@
 # 澄序 · 设计主题样板
 
-一套清晰、克制但不沉闷的界面主题示例。Web 展示站与 Expo 移动端分别位于 `apps/web`、`apps/mobile`，共用一份设计 token，各自维护页面、组件和构建配置。
+澄序是一个 Arc UI 设计主题样板。Next.js Web 展示站使用 Arc 的主题角色和组件。Expo 移动端沿用 HeroUI Native，并以共享 token 和 Arc 设计原则指导后续设计。
 
 ## 快速开始
 
@@ -36,8 +36,7 @@ apps/
     src/shared/
       layout/                  公共侧栏、页头与 SectionShared
       providers/               跨页面共享的主题状态
-      arc/                     Arc UI 基础与 Pro 组件源码、澄序主题映射
-      ui/                      兼容组件及保留的 shadcn/ui 组件
+      arc/                     Arc UI 基础与 Pro 组件源码
       hooks/                   公共 hooks
       lib/                     公共工具
 packages/
@@ -56,9 +55,13 @@ packages/
 | `/colors`     | 三套浅色、一套深色主题与可编辑的功能颜色矩阵 |
 | `/typography` | 字体分类与完整参数                           |
 | `/spacing`    | 间距、圆角与形状                             |
-| `/showcase`   | Arc UI 基础与 Pro 组件、shadcn/ui 示例，按 6 类预览 |
+| `/showcase`   | Arc UI 基础与 Pro 组件，按 6 类预览             |
+| `/styles`     | 界面风格示例与设备比例切换                       |
+| `/patterns`   | 页面模块模式与分类筛选                           |
+| `/motion`     | 动效参考                                         |
+| `/orchestratelq` | 独立工作台示例                                 |
 
-侧栏使用 shadcn/ui Sidebar。新页面可按需引用 `src/shared/arc/` 中的组件。旧地址 `/components` 永久重定向到 `/showcase`。
+桌面侧栏使用语义化链接，窄屏导航使用 Arc Drawer。新页面按需引用 `src/shared/arc/` 中的组件。旧地址 `/components` 永久重定向到 `/showcase`。
 
 页面采用“总分”结构：`page.tsx` 只组合布局、Provider 和内容组件；标题、说明、数据展示和业务交互由当前路由 `components/` 下的组件负责。页面私有的数据、类型、工具和状态放在同一目录，仅跨页面复用的代码进入 `shared/`。组件文件夹内不放 `page.tsx` 或 `route.ts`，普通组件不会成为公开路由。
 
@@ -70,7 +73,7 @@ packages/
 - 自定义页面样式通过 `--ds-color-*`、`--space-*`、`--ds-radius-*`、`--type-*` 等变量读取设计 token。
 - `pnpm tokens:build` 重新生成目标文件；`pnpm tokens:check` 检查生成产物是否与源一致。
 - 项目页面在 JSX 中使用 Tailwind 类。Arc UI 源码沿用上游 CSS Modules。
-- 主题变量由 `tokenVariables` 和 `themeStyle` 注入根节点，Web 的 Arc 样式从这些变量派生 `--arc-*` 变量。
+- Web 在根布局加载 Arc `foundation.css`。`themeStyle` 将澄序主题映射到 Arc 的 `--background`、`--surface`、`--accent`、`--control-on` 等语义变量，并以 `data-theme` 启用对应的明暗模式。组件字体使用本地 Geist 和 Inter，中文字符使用系统字体。
 - 新的产品颜色应先加入 token，再在节点工具类中引用。
 
 ## 常用命令
@@ -90,21 +93,23 @@ packages/
 
 ## 视觉规则
 
-- 灰蓝中性色承担背景和阅读层级，低饱和紫靛只标记重点与交互。
-- 使用系统中文无衬线字体，依靠字号、字重和行高形成阅读层级。
-- 间距以 4px 为基础递增，圆角按控件与容器层级区分。
-- 优先用对齐、留白和语义表达组织信息；装饰不承担内容本身的任务。
+Web 默认使用浅暖灰画布、近黑正文和 Arc 蓝色强调。留白与细边界区分层级，Geist 和 Inter 分别用于标题与正文，中文回退到系统字体。设计原则、Arc 原始资料与编码工作流随仓库维护。
+
+- [澄序设计规范](doc/design.md)
+- [Arc 原始规范与页面示例](doc/arc/SKILL.md)
+- [Codex 项目技能 `chengxu-ui`](.agents/skills/chengxu-ui/SKILL.md)
+- [移动端设计原则](apps/mobile/README.md#arc-设计原则)
 
 ## 主题工作台
 
 颜色页按功能展示 101 个角色，包含背景、前景、表面、浮层、状态、输入、边界、按钮、选择控件、导航与图表。三套浅色主题并列对照，深色主题独立切换；功能分类和搜索用于定位角色。
 
-- **专注工作**：沿用澄序的低饱和强调，参考 [Radix Colors 的用途与状态阶梯](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale)。
+- **专注工作**：暖灰背景与 Arc 蓝色强调，供 Web 默认使用。预设位于 `themes.studio`，移动端继续读取原有基础配色。
 - **清晰交互**：参考 [HeroUI 语义颜色](https://heroui.com/en/docs/native/getting-started/colors)，保留文档中的 OKLCH 基色，并调整实色前景配对以提高按钮文字对比度。
 - **温润阅读**：参考 [Material Design 3 的表面与前景配对](https://m3.material.io/styles/color/roles)，使用较暖的中性表面承载长内容。
 - **夜间工作**：独立的近黑画布和容器亮度阶梯，参考 HeroUI 深色角色；强调与状态色针对深底重新配对。
 
-这些主题是本项目的配色实现，并非上述设计系统的官方预设。预设颜色继续维护在 `packages/design-tokens/tokens.json`（原始澄序色与 `themes` 部分）；`src/themes.ts` 定义语义关系及 shadcn、旧展示组件的变量映射。派生角色使用 `color-mix(in oklab, …)`，覆盖某个角色后可以恢复预设/自动关联。
+以上四套配色由本项目维护。预设颜色位于 `packages/design-tokens/tokens.json`，语义关系及 Arc CSS 变量映射位于 `src/themes.ts`。派生角色使用 `color-mix(in oklab, …)`，覆盖某个角色后可以恢复预设或自动关联。
 
 切换和编辑仅做全站预览，页面导航保留草稿，刷新恢复已保存状态。点击「保存主题」将当前选择及四套主题的所有自定义值保存至**当前浏览器的 localStorage**，键为 `chengxu.theme.v1`，不会修改仓库文件或跨设备同步。浏览器存储不可用时显示错误并保留草稿；可通过「导出配置」下载包含自定义值及 CSS 变量的 JSON。根布局在首屏绘制前应用保存的主题，避免深浅主题闪烁。
 
@@ -112,9 +117,9 @@ packages/
 
 ## 组件预览库
 
-`/showcase` 按六类浏览 Arc UI 基础与 Pro 组件和保留的 shadcn/ui 示例。可操作的本地演示在滚动到附近时自动加载，组件目录默认显示分类，展开后可跳到具体示例。页面支持中英文搜索、分类筛选、四套主题切换、复制导入语句和跳转官方文档。
+`/showcase` 按六类浏览 Arc UI 基础与 Pro 组件。可操作的本地演示在滚动到附近时自动加载，展开分类后可跳到具体示例。页面支持中英文搜索、分类筛选、四套主题切换、复制导入语句和跳转官方文档。
 
 - Arc UI 基础组件最初取自[固定的上游提交](https://github.com/kuratlielia/arc-library/tree/8302b52ed9dc79ae7ca699b158a98dfdf09656f7)，MIT 声明随 `apps/web/src/shared/arc/` 保存。基础与 Pro 组件分别存放在 `arc/` 和 `arc/pro/`，构建直接使用本地源码。
-- 升级时对照上游 `public/r/` 的免费组件清单，合并同路径的共享文件，保留 Web 专用主题桥接、深色选择器和可访问性调整。
-- 组件元数据和按需加载入口在 `apps/web/src/app/showcase/components/`。保留的 shadcn/ui 示例是 AlertDialog、InputGroup、Separator、Spinner 和独立 Toggle。
+- 在 `apps/web` 目录运行 `pnpm exec shadcn add @uiarc/<组件>` 安装新组件。Pro registry 使用 `ARC_PRO_TOKEN`。升级已有组件时检查同路径的主题角色绑定与可访问性调整。[Arc 安装说明](https://uiarc.dev/docs/installation)
+- 组件元数据和按需加载入口在 `apps/web/src/app/showcase/components/`。
 - 页面内连续通知使用 Arc 的 `ToastStackProvider` 和 `useToastStack`，展示页共用一个通知容器。

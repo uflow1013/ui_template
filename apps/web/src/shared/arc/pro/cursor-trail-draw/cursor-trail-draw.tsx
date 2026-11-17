@@ -65,9 +65,9 @@ export interface CursorTrailDrawProps {
 }
 
 const DEFAULT_COLORS: WhiteboardColor[] = [
-  { id: "ink", label: "Ink", value: "var(--arc-foreground)" },
+  { id: "ink", label: "Ink", value: "var(--foreground)" },
   { id: "accent", label: "Accent", value: "var(--ctd-accent)" },
-  { id: "red", label: "Red", value: "var(--arc-danger)" },
+  { id: "red", label: "Red", value: "var(--danger)" },
 ];
 
 const SHAPE_NAMES: Record<WhiteboardShape, string> = {
@@ -511,7 +511,7 @@ export function CursorTrailDraw({
 
   const announce = useCallback((m: string) => setMessage(prev => (prev === m ? m + " " : m)), []);
 
-  const colorValue = useCallback((id: string) => live.current.colors.find(c => c.id === id)?.value ?? "var(--arc-foreground)", []);
+  const colorValue = useCallback((id: string) => live.current.colors.find(c => c.id === id)?.value ?? "var(--foreground)", []);
 
   /* ---------- painting ---------- */
 

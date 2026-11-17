@@ -23,7 +23,7 @@ export interface MorphLoaderProps {
   size?: number;
   /** Stroke thickness in grid units. */
   strokeWidth?: number;
-  /** Colors the check with --arc-success and the cross with --arc-danger. Turn it off to keep currentColor throughout. */
+  /** Colors the check with --success and the cross with --danger. Turn it off to keep currentColor throughout. */
   tone?: boolean;
   /** Announced while loading. */
   label?: string;

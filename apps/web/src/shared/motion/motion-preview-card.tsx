@@ -1,8 +1,11 @@
 "use client";
 
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/arc/button/button";
+import { CodeBlock } from "@/shared/arc/code-block/code-block";
+import { Select } from "@/shared/arc/select/select";
+import { Switch } from "@/shared/arc/switch/switch";
 import { Slider } from "@/shared/arc/slider/slider";
-import { Check, ChevronDown, Copy, Pause, Play, RotateCcw } from "lucide-react";
+import { ChevronDown, Pause, Play, RotateCcw } from "lucide-react";
 import { useState } from "react";
 import type { MotionCatalogItem } from "./motion-catalog";
 
@@ -19,7 +22,6 @@ export function MotionPreviewCard({ item }: { item: MotionCatalogItem }) {
   const [isPaused, setIsPaused] = useState(false);
   const [resetKey, setResetKey] = useState(0);
   const [showCode, setShowCode] = useState(false);
-  const [copied, setCopied] = useState(false);
   const Demo = item.demo;
 
   const reset = () => {
@@ -27,16 +29,6 @@ export function MotionPreviewCard({ item }: { item: MotionCatalogItem }) {
     setIsPlaying(false);
     setIsPaused(false);
     setResetKey((value) => value + 1);
-  };
-
-  const copyCode = async () => {
-    try {
-      await navigator.clipboard.writeText(item.code);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1600);
-    } catch {
-      setCopied(false);
-    }
   };
 
   return (
@@ -64,38 +56,24 @@ export function MotionPreviewCard({ item }: { item: MotionCatalogItem }) {
               const value = params[parameter.id];
               if (parameter.type === "select") {
                 return (
-                  <label className="grid gap-2" key={parameter.id}>
-                    <span className="flex items-center justify-between text-[length:var(--type-size-xs)] text-[var(--ds-color-muted)]">
-                      <span>{parameter.label}</span>
-                      <span>{String(value)}</span>
-                    </span>
-                    <select
-                      className="h-9 rounded-xl bg-background px-3 text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-                      value={String(value)}
-                      onChange={(event) => setParams((current) => ({ ...current, [parameter.id]: event.target.value }))}
-                    >
-                      {parameter.options?.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
+                  <Select
+                    key={parameter.id}
+                    label={parameter.label}
+                    options={parameter.options ?? []}
+                    value={String(value)}
+                    onValueChange={(next) => setParams((current) => ({ ...current, [parameter.id]: next }))}
+                  />
                 );
               }
 
               if (parameter.type === "toggle") {
                 return (
-                  <Button
-                    aria-pressed={Boolean(value)}
-                    className="justify-between bg-background text-xs"
+                  <Switch
+                    checked={Boolean(value)}
                     key={parameter.id}
-                    onClick={() => setParams((current) => ({ ...current, [parameter.id]: !Boolean(value) }))}
-                    variant="ghost"
-                  >
-                    {parameter.label}
-                    <span>{formatValue(value)}</span>
-                  </Button>
+                    label={parameter.label}
+                    onCheckedChange={(next) => setParams((current) => ({ ...current, [parameter.id]: next }))}
+                  />
                 );
               }
 
@@ -142,19 +120,12 @@ export function MotionPreviewCard({ item }: { item: MotionCatalogItem }) {
           <span className="text-[length:var(--type-size-xs)] text-[var(--ds-color-muted)]">
             {isPlaying ? (isPaused ? "已暂停 · 点击继续" : "预览播放中") : "点击播放，启动动效"}
           </span>
-          <Button aria-expanded={showCode} onClick={() => setShowCode((value) => !value)} size="xs" variant="ghost">
+          <Button aria-expanded={showCode} onClick={() => setShowCode((value) => !value)} size="sm" variant="ghost">
             <ChevronDown className={showCode ? "rotate-180 transition-transform" : "transition-transform"} />
             {showCode ? "收起代码" : "查看代码"}
           </Button>
         </div>
-        {showCode && (
-          <div className="relative rounded-2xl bg-background p-4">
-            <Button aria-label="复制代码" className="absolute right-2 top-2" onClick={copyCode} size="icon-xs" variant="ghost">
-              {copied ? <Check /> : <Copy />}
-            </Button>
-            <pre className="m-0 overflow-x-auto pr-8 text-[length:0.7rem] leading-[1.8] text-foreground/80"><code>{item.code}</code></pre>
-          </div>
-        )}
+        {showCode && <CodeBlock code={item.code} />}
       </div>
     </article>
   );

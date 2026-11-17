@@ -12,7 +12,7 @@ export interface AgentTimelineAgent {
   model?: string;
   /** One line about the agent's job, shown in the span card. */
   role?: string;
-  /** Row color for spans, connectors and the legend dot. Defaults to neutral for the first agent and --arc-series-1 to --arc-series-4 after it. */
+  /** Row color for spans, connectors and the legend dot. Defaults to neutral for the first agent and --series-1 to --series-4 after it. */
   color?: string;
   /** Provider mark. Inferred from the model name (Claude, GPT, Gemini) when left out. */
   mark?: ReactNode;
@@ -93,8 +93,8 @@ export interface TimelineConnector {
   targetSpan?: string;
 }
 
-export const SERIES = ["var(--arc-series-1)", "var(--arc-series-2)", "var(--arc-series-3)", "var(--arc-series-4)"];
-export const LEAD_COLOR = "var(--arc-text-secondary)";
+export const SERIES = ["var(--series-1)", "var(--series-2)", "var(--series-3)", "var(--series-4)"];
+export const LEAD_COLOR = "var(--text-secondary)";
 
 const toolOf = (tool: AgentTimelineSpan["tool"]): AgentTimelineTool | undefined =>
   tool == null ? undefined : typeof tool === "string" ? { name: tool } : tool;

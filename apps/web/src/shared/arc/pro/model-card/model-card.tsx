@@ -250,8 +250,8 @@ function Benchmarks({ model, others, benchmarks, benchmark, onBenchmark, sample,
   </section>;
 }
 
-function Pricing({ model, currency, sample, volumeIndex, onVolume, inputShare, reduced, active }: {
-  model: ModelCardModel; currency: string; sample: boolean; volumeIndex: number; onVolume: (index: number) => void; inputShare: number; reduced: boolean; active: boolean;
+function Pricing({ model, currency, volumeIndex, onVolume, inputShare, reduced, active }: {
+  model: ModelCardModel; currency: string; volumeIndex: number; onVolume: (index: number) => void; inputShare: number; reduced: boolean; active: boolean;
 }) {
   const pricing = model.pricing;
   const tokens = volumes[volumeIndex];
@@ -298,7 +298,7 @@ function DetailsView({ model, others, benchmarks, benchmark, onBenchmark, curren
         <span className={styles.pages}>{context ? <>Fits about <Rolling value={pagesFor(context)} format={value => grouped.format(value)} reduced={reduced} /> pages</> : notListed}</span>
       </div>
     </div>
-    <Pricing model={model} currency={currency} sample={sample} volumeIndex={volumeIndex} onVolume={onVolume} inputShare={inputShare} reduced={reduced} active={active} />
+    <Pricing model={model} currency={currency} volumeIndex={volumeIndex} onVolume={onVolume} inputShare={inputShare} reduced={reduced} active={active} />
     {benchmark && <Benchmarks model={model} others={others} benchmarks={benchmarks} benchmark={benchmark} onBenchmark={onBenchmark} sample={sample} active={active} reduced={reduced} />}
   </div>;
 }

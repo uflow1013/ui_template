@@ -1,10 +1,10 @@
-.root { --paper: var(--ticket-paper, var(--arc-surface-raised)); position: relative; display: flex; width: 100%; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.root { --paper: var(--ticket-paper, var(--surface-raised)); position: relative; display: flex; width: 100%; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 
-:global(:root[data-theme="night"]) .root { --paper: var(--ticket-paper, color-mix(in oklab, var(--arc-surface-raised) 94%, white)); }
+:global(:root[data-theme="dark"]) .root { --paper: var(--ticket-paper, color-mix(in oklab, var(--surface-raised) 94%, white)); }
 
 /* Shadows sit on wrappers: a masked element would clip its own shadow away. */
 .bodyWrap, .stubWrap { filter: drop-shadow(0 1px 1px oklch(0% 0 0 / .06)) drop-shadow(0 8px 18px oklch(0% 0 0 / .08)); }
-:global(:root[data-theme="night"]) .bodyWrap, :global(:root[data-theme="night"]) .stubWrap { filter: drop-shadow(0 0 0 oklch(100% 0 0 / 0)) drop-shadow(0 10px 22px oklch(0% 0 0 / .4)); }
+:global(:root[data-theme="dark"]) .bodyWrap, :global(:root[data-theme="dark"]) .stubWrap { filter: drop-shadow(0 0 0 oklch(100% 0 0 / 0)) drop-shadow(0 10px 22px oklch(0% 0 0 / .4)); }
 
 .bodyWrap { position: relative; flex: 1; min-width: 0; margin-right: calc(var(--stub) - var(--pad)); }
 .body { position: relative; }
@@ -48,6 +48,6 @@
 .flap { will-change: transform, clip-path; }
 
 /* Paper fibers: a rougher layer one or two pixels past each torn edge, in the paper's raw core color. */
-.rim { position: absolute; inset: 0; background: var(--ticket-fiber, color-mix(in oklab, var(--paper) 84%, var(--arc-foreground))); }
+.rim { position: absolute; inset: 0; background: var(--ticket-fiber, color-mix(in oklab, var(--paper) 84%, var(--foreground))); }
 
 .status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

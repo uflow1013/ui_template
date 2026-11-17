@@ -315,9 +315,9 @@ export function KeycapKeyboard({
     plateSize.current = to;
     if ((from.w === to.w && from.h === to.h) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const css = getComputedStyle(node);
-    const easing = css.getPropertyValue("--arc-ease-spring").trim() || "cubic-bezier(.22, 1, .36, 1)";
-    const duration = toMs(css.getPropertyValue("--arc-duration-spring"), 580);
-    const fade = toMs(css.getPropertyValue("--arc-duration-standard"), 240);
+    const easing = css.getPropertyValue("--ease-spring").trim() || "cubic-bezier(.22, 1, .36, 1)";
+    const duration = toMs(css.getPropertyValue("--duration-spring"), 580);
+    const fade = toMs(css.getPropertyValue("--duration-standard"), 240);
     const size = node.animate([{ width: `${from.w}px`, height: `${from.h}px` }, { width: `${to.w}px`, height: `${to.h}px` }], { duration, easing });
     node.dataset.morphing = "";
     size.onfinish = size.oncancel = () => { if (morph.current[0] === size) delete node.dataset.morphing; };

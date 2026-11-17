@@ -6,8 +6,8 @@
   height: 1.55em;
   place-items: center;
   overflow: hidden;
-  color: var(--arc-foreground);
-  font-family: var(--arc-font-display);
+  color: var(--foreground);
+  font-family: var(--font-display);
   font-size: clamp(3rem, 17cqi, 8rem);
   font-weight: 500;
   line-height: 1;

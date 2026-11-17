@@ -38,7 +38,7 @@ export interface SplitBarProps {
   style?: CSSProperties;
 }
 
-const PALETTE = ["var(--arc-series-1)", "var(--arc-series-2)", "var(--arc-series-3)", "var(--arc-series-4)", "var(--arc-text-muted)", "var(--arc-border-strong)"];
+const PALETTE = ["var(--series-1)", "var(--series-2)", "var(--series-3)", "var(--series-4)", "var(--text-muted)", "var(--border-strong)"];
 const DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 const GROW = .045;
 const LANE = 40;
@@ -249,7 +249,7 @@ export function SplitBar({
   const [message, setMessage] = useState("");
   const [nudge, setNudge] = useState<{ id: string; key: number } | null>(null);
 
-  const colorOf = (segment: SplitSegment, index: number) => segment.color ?? PALETTE[index % PALETTE.length] ?? "var(--arc-text-muted)";
+  const colorOf = (segment: SplitSegment, index: number) => segment.color ?? PALETTE[index % PALETTE.length] ?? "var(--text-muted)";
   const visible = segments.filter(segment => !hidden.has(segment.id) && segment.value > 0);
   const total = visible.reduce((sum, segment) => sum + segment.value, 0);
   const activeOn = active && visible.some(segment => segment.id === active) ? active : null;

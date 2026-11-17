@@ -110,9 +110,9 @@ export function BottomSheetDemo() {
 export function HoverCardDemo() {
   return (
     <HoverCard content={<HoverCardProfile name="陈晓" role="产品设计师" stats={[{ label: "项目", value: 12 }]} />}>
-      <button type="button" className="rounded-md border px-3 py-2 text-sm">
+      <Button type="button" size="sm" variant="secondary">
         @陈晓
-      </button>
+      </Button>
     </HoverCard>
   );
 }

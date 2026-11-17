@@ -1,14 +1,14 @@
 /* Palette: the accent drives the screen, antenna, keys and sparkles; neutrals come from the theme. Tints mix in oklab. */
 .root {
-  --pm-ink: light-dark(color-mix(in oklab, var(--arc-foreground) 92%, var(--arc-background)), color-mix(in oklab, var(--arc-foreground) 76%, var(--arc-background)));
-  --pm-body: light-dark(var(--arc-surface-raised), color-mix(in oklab, var(--arc-foreground) 12%, var(--arc-surface-raised)));
-  --pm-shade: light-dark(color-mix(in oklab, var(--arc-foreground) 9%, var(--arc-surface-raised)), color-mix(in oklab, var(--arc-background) 50%, var(--pm-body)));
-  --pm-screen: var(--arc-accent);
-  --pm-eye: var(--arc-accent-foreground, var(--arc-background));
-  --pm-dim: color-mix(in oklab, var(--arc-accent) 30%, var(--pm-body));
-  --pm-cheek: color-mix(in oklab, var(--arc-accent) 32%, var(--pm-body));
-  --pm-error-screen: color-mix(in oklab, var(--arc-danger) 16%, var(--pm-body));
-  --pm-shadow: light-dark(color-mix(in oklab, var(--arc-foreground) 12%, transparent), color-mix(in oklab, var(--arc-foreground) 10%, transparent));
+  --pm-ink: light-dark(color-mix(in oklab, var(--foreground) 92%, var(--background)), color-mix(in oklab, var(--foreground) 76%, var(--background)));
+  --pm-body: light-dark(var(--surface-raised), color-mix(in oklab, var(--foreground) 12%, var(--surface-raised)));
+  --pm-shade: light-dark(color-mix(in oklab, var(--foreground) 9%, var(--surface-raised)), color-mix(in oklab, var(--background) 50%, var(--pm-body)));
+  --pm-screen: var(--accent);
+  --pm-eye: var(--accent-foreground, var(--background));
+  --pm-dim: color-mix(in oklab, var(--accent) 30%, var(--pm-body));
+  --pm-cheek: color-mix(in oklab, var(--accent) 32%, var(--pm-body));
+  --pm-error-screen: color-mix(in oklab, var(--danger) 16%, var(--pm-body));
+  --pm-shadow: light-dark(color-mix(in oklab, var(--foreground) 12%, transparent), color-mix(in oklab, var(--foreground) 10%, transparent));
   position: relative;
   display: inline-flex;
   flex: none;
@@ -23,10 +23,10 @@
 .shade { fill: var(--pm-shade); }
 .screen { fill: var(--pm-screen); }
 .eye { fill: var(--pm-eye); }
-.cross { fill: var(--arc-danger); }
+.cross { fill: var(--danger); }
 .cheek { fill: var(--pm-cheek); }
-.accent { fill: var(--arc-accent); }
-.tip { fill: var(--arc-accent); }
+.accent { fill: var(--accent); }
+.tip { fill: var(--accent); }
 .shadow { fill: var(--pm-shadow); }
 
 /* The screen and antenna switch with the eyes, on the same sprite step. */

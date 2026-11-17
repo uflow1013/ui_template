@@ -1,4 +1,4 @@
-.root { --paper: var(--arc-surface-raised); position: relative; display: grid; width: 100%; justify-items: center; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.root { --paper: var(--surface-raised); position: relative; display: grid; width: 100%; justify-items: center; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 .root:not([data-ready]) { visibility: hidden; }
 
 .book { position: relative; width: calc(var(--page-w) * 2); height: var(--page-h); touch-action: pan-y; will-change: transform; }
@@ -7,10 +7,10 @@
 .left { left: 0; }
 .right { left: var(--page-w); }
 
-.page { position: absolute; inset: 0; overflow: hidden; background: var(--paper); box-shadow: 0 0 0 1px var(--arc-border), var(--arc-shadow-raised); }
+.page { position: absolute; inset: 0; overflow: hidden; background: var(--paper); box-shadow: 0 0 0 1px var(--border), var(--shadow-raised); }
 .left .page { border-radius: 6px 2px 2px 6px; }
 .right .page, .turn .page { border-radius: 2px 6px 6px 2px; }
-.page[data-blank] { box-shadow: 0 0 0 1px var(--arc-border); }
+.page[data-blank] { box-shadow: 0 0 0 1px var(--border); }
 
 /* Light falls into the binding. */
 .gutter { position: absolute; top: 0; left: calc(var(--page-w) - 18px); width: 36px; height: var(--page-h); pointer-events: none; background: linear-gradient(90deg, transparent, oklch(0% 0 0 / .07) 48%, oklch(0% 0 0 / .1) 50%, oklch(0% 0 0 / .07) 52%, transparent); }
@@ -23,7 +23,7 @@
 .book:active .edge { cursor: grabbing; }
 
 /* A small chevron at the outer edge of the hovered page says which way a tap will turn. */
-.cue { display: grid; place-items: center; width: 28px; height: 28px; margin-inline: 8px; border: 1px solid var(--arc-border); border-radius: 50%; color: var(--arc-foreground); background: color-mix(in oklab, var(--arc-surface-raised) 88%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: var(--arc-shadow-resting); opacity: 0; transform: translateX(var(--cue-x, 0)) scale(.92); transition: opacity var(--arc-duration-fast) var(--arc-ease-standard), transform var(--arc-duration-standard) var(--arc-ease-standard); }
+.cue { display: grid; place-items: center; width: 28px; height: 28px; margin-inline: 8px; border: 1px solid var(--border); border-radius: 50%; color: var(--foreground); background: color-mix(in oklab, var(--surface-raised) 88%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: var(--shadow-resting); opacity: 0; transform: translateX(var(--cue-x, 0)) scale(.92); transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-standard) var(--ease-standard); }
 .edgeLeft .cue { --cue-x: 4px; }
 .edgeRight .cue { --cue-x: -4px; }
 @media (hover: hover) and (pointer: fine) {
@@ -31,26 +31,26 @@
 }
 
 /* The hint sits under the lower outer corner and fades for good after the first interaction. */
-.hint { position: absolute; top: calc(100% + 12px); right: 0; display: inline-flex; align-items: center; gap: 6px; margin: 0; color: var(--arc-text-muted); font-size: var(--arc-text-xs); line-height: 1; white-space: nowrap; pointer-events: none; transition: opacity var(--arc-duration-considered) var(--arc-ease-standard), transform var(--arc-duration-considered) var(--arc-ease-standard); }
+.hint { position: absolute; top: calc(100% + 12px); right: 0; display: inline-flex; align-items: center; gap: 6px; margin: 0; color: var(--text-muted); font-size: var(--text-xs); line-height: 1; white-space: nowrap; pointer-events: none; transition: opacity var(--duration-considered) var(--ease-standard), transform var(--duration-considered) var(--ease-standard); }
 .hint[data-hidden] { opacity: 0; transform: translateY(-4px); }
 
 .controls { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 44px; }
-.control { display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; color: var(--arc-foreground); background: transparent; cursor: pointer; transition: background var(--arc-duration-fast) var(--arc-ease-standard), opacity var(--arc-duration-fast) var(--arc-ease-standard), transform var(--arc-duration-fast) var(--arc-ease-standard); }
+.control { display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; color: var(--foreground); background: transparent; cursor: pointer; transition: background var(--duration-fast) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard); }
 .control:active:not(:disabled) { transform: scale(.94); }
 .control:disabled { cursor: default; opacity: .3; }
-@media (hover: hover) and (pointer: fine) { .control:hover:not(:disabled) { background: var(--arc-surface-muted); } }
-.count { display: inline-flex; min-width: 9.5rem; justify-content: center; gap: 5px; margin: 0; color: var(--arc-foreground); font-size: var(--arc-text-sm); font-variant-numeric: tabular-nums; letter-spacing: var(--arc-tracking-body); line-height: var(--arc-leading-body); white-space: nowrap; }
-.total { color: var(--arc-text-muted); }
+@media (hover: hover) and (pointer: fine) { .control:hover:not(:disabled) { background: var(--surface-muted); } }
+.count { display: inline-flex; min-width: 9.5rem; justify-content: center; gap: 5px; margin: 0; color: var(--foreground); font-size: var(--text-sm); font-variant-numeric: tabular-nums; letter-spacing: var(--tracking-body); line-height: var(--leading-body); white-space: nowrap; }
+.total { color: var(--text-muted); }
 
 @media (prefers-reduced-motion: reduce) {
-  .cue, .hint, .control { transition: opacity var(--arc-duration-fast) var(--arc-ease-standard); }
+  .cue, .hint, .control { transition: opacity var(--duration-fast) var(--ease-standard); }
 }
 
 .turn { position: absolute; top: 0; left: var(--page-w); z-index: 4; width: var(--page-w); height: var(--page-h); pointer-events: none; transform-origin: 0 50%; }
 .turn[data-dir="-1"] { transform: scaleX(-1); }
 .front, .under, .flap { position: absolute; inset: 0; overflow: hidden; }
 .flapWrap { position: absolute; inset: 0; filter: drop-shadow(0 0 10px oklch(0% 0 0 / .18)); }
-:global(:root[data-theme="night"]) .flapWrap { filter: drop-shadow(0 0 12px oklch(0% 0 0 / .55)); }
+:global(:root[data-theme="dark"]) .flapWrap { filter: drop-shadow(0 0 12px oklch(0% 0 0 / .55)); }
 .flap { transform-origin: 0 0; }
 .flap .page { box-shadow: none; }
 .mirror { position: absolute; inset: 0; transform: scaleX(-1); }

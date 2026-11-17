@@ -168,7 +168,7 @@ export const megaMenuSampleItems: MegaMenuItem[] = [
 ];
 
 const sampleActions: MegaMenuAction[] = [{ label: "Sign in", href: "#sign-in" }, { label: "Start now", href: "#start", variant: "primary" }];
-const sampleBrand = { name: "Tally", href: "#home", mark: <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="16" height="16" rx="5" fill="currentColor" /><path d="M6.5 7.5h7M10 7.5v6" stroke="var(--arc-background)" strokeWidth="1.9" strokeLinecap="round" /></svg> };
+const sampleBrand = { name: "Tally", href: "#home", mark: <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="16" height="16" rx="5" fill="currentColor" /><path d="M6.5 7.5h7M10 7.5v6" stroke="var(--background)" strokeWidth="1.9" strokeLinecap="round" /></svg> };
 
 type Bezier = [number, number, number, number];
 const standard = [...motionTokens.ease.standard] as Bezier;

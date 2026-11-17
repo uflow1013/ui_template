@@ -1,6 +1,6 @@
-import type { ComponentExample, DemoLoader } from "./example-types";
+import type { DemoLoader } from "./example-types";
 
-export const migratedExamples: Readonly<Record<string, { id: string; loadDemo: DemoLoader }>> = {
+export const demoOverrides: Readonly<Partial<Record<string, { id: string; loadDemo: DemoLoader }>>> = {
   "button": { id: "button", loadDemo: () => import("./demos/actions").then((module) => ({ default: module.ButtonsDemo })) },
   "button-group": { id: "button-group", loadDemo: () => import("./demos/actions").then((module) => ({ default: module.ButtonGroupDemo })) },
   "toggle-group": { id: "toggle-group", loadDemo: () => import("./demos/actions").then((module) => ({ default: module.ToggleGroupDemo })) },
@@ -30,61 +30,3 @@ export const migratedExamples: Readonly<Record<string, { id: string; loadDemo: D
   "popover": { id: "popover", loadDemo: () => import("./demos/overlays").then((module) => ({ default: module.PopoverDemo })) },
   "tooltip": { id: "tooltip", loadDemo: () => import("./demos/overlays").then((module) => ({ default: module.TooltipDemo })) },
 };
-
-export const retainedExamples: ComponentExample[] = [
-  {
-    id: "toggle",
-    name: "Toggle",
-    title: "切换按钮",
-    description: "单个选项的开启、关闭与禁用",
-    group: "actions",
-    source: "shadcn",
-    importStatement: "import { Toggle } from \"@/shared/ui/toggle\";",
-    docs: "https://ui.shadcn.com/docs/components/toggle",
-    loadDemo: () => import("./demos/actions").then((module) => ({ default: module.ToggleDemo })),
-  },
-  {
-    id: "input-group",
-    name: "Input Group",
-    title: "组合输入",
-    description: "为输入框添加图标、快捷键和后缀",
-    group: "forms",
-    source: "shadcn",
-    importStatement: "import { InputGroup, InputGroupInput, InputGroupAddon } from \"@/shared/ui/input-group\";",
-    docs: "https://ui.shadcn.com/docs/components/input-group",
-    loadDemo: () => import("./demos/forms").then((module) => ({ default: module.InputGroupDemo })),
-  },
-  {
-    id: "separator",
-    name: "Separator",
-    title: "分隔线",
-    description: "水平与垂直的轻量内容边界",
-    group: "data",
-    source: "shadcn",
-    importStatement: "import { Separator } from \"@/shared/ui/separator\";",
-    docs: "https://ui.shadcn.com/docs/components/separator",
-    loadDemo: () => import("./demos/data").then((module) => ({ default: module.SeparatorDemo })),
-  },
-  {
-    id: "spinner",
-    name: "Spinner",
-    title: "加载指示",
-    description: "独立指示与按钮内的等待状态",
-    group: "feedback",
-    source: "shadcn",
-    importStatement: "import { Spinner } from \"@/shared/ui/spinner\";",
-    docs: "https://ui.shadcn.com/docs/components/spinner",
-    loadDemo: () => import("./demos/feedback").then((module) => ({ default: module.SpinnerDemo })),
-  },
-  {
-    id: "alert-dialog",
-    name: "Alert Dialog",
-    title: "确认弹窗",
-    description: "为关键操作提供明确的确认与取消",
-    group: "overlays",
-    source: "shadcn",
-    importStatement: "import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogAction } from \"@/shared/ui/alert-dialog\";",
-    docs: "https://ui.shadcn.com/docs/components/alert-dialog",
-    loadDemo: () => import("./demos/overlays").then((module) => ({ default: module.AlertDialogDemo })),
-  },
-];

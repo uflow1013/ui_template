@@ -68,7 +68,7 @@ const CLOCK = physical({ visualDuration: .42, bounce: 0 });
 const glide = physical(spring.snappy);
 const follow = { stiffness: glide.k, damping: glide.c, restDelta: .01 };
 /** Groups take the four series hues in order; a fifth group and beyond stay neutral rather than reuse a hue. */
-const hueOf = (index: number) => index < 0 ? "var(--arc-series-1)" : index < 4 ? `var(--series-${index + 1})` : "color-mix(in oklab, var(--arc-foreground) 45%, var(--arc-surface))";
+const hueOf = (index: number) => index < 0 ? "var(--series-1)" : index < 4 ? `var(--series-${index + 1})` : "color-mix(in oklab, var(--foreground) 45%, var(--surface))";
 const ROW = 36, BAR = 24, AXIS = 26, GAP = 12, VALUE_ROOM = 64, TIP = 12;
 const compact = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
 const percent = new Intl.NumberFormat("en-US", { style: "percent", maximumFractionDigits: 1, signDisplay: "exceptZero" });

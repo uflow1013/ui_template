@@ -1,10 +1,11 @@
 "use client";
 
-import { Button } from "@/shared/ui/button";
+import { ColorPicker } from "@/shared/arc/color-picker/color-picker";
+import { Button } from "@/shared/arc/button/button";
 import { Drawer, DrawerContent } from "@/shared/arc/drawer/drawer";
 import { Input } from "@/shared/arc/input/input";
 import { themes } from "@template/design-tokens/themes";
-import { Check, Pencil, RotateCcw } from "lucide-react";
+import { Check, RotateCcw } from "lucide-react";
 import { type CSSProperties } from "react";
 import { colorWithOpacity } from "./color-values";
 import { useColorWorkbench } from "./color-workbench-context";
@@ -12,6 +13,7 @@ import { useColorWorkbench } from "./color-workbench-context";
 export function ColorEditor() {
   const {
     message,
+    resolvedPalettes,
     editToken,
     saveTheme,
     editing,
@@ -29,7 +31,7 @@ export function ColorEditor() {
       }}
     >
       <DrawerContent
-        className="[--drawer-size:min(100vw,420px)]!"
+        className="[--drawer-size:min(100%,420px)]!"
         closeLabel="关闭颜色编辑"
         title="编辑功能颜色"
         description={editing
@@ -44,9 +46,9 @@ export function ColorEditor() {
         }}
       >
         {editing && (
-          <div className="flex flex-col pt-2 pb-6 px-6 gap-4">
+          <div className="flex flex-col gap-4 pt-2 pb-6">
             <div>
-              <h2 className="text-[length:1.125rem] font-semibold m-0">
+              <h2 className="text-[length:1.125rem] font-medium m-0">
                 {editing.token.name}
               </h2>
               <code className="text-[length:.6875rem] font-[family-name:ui-monospace,monospace] leading-[normal] font-normal not-italic text-[var(--muted-foreground)]">
@@ -66,66 +68,22 @@ export function ColorEditor() {
                 }
               />
             </div>
-            <div className="flex items-center justify-between gap-2">
-              <label className="relative inline-flex items-center border border-[var(--border)] rounded-[.5rem] text-[length:.75rem] cursor-pointer py-1.5 px-2.5 gap-1.5 focus-within:[outline:2px_solid_var(--ring)] focus-within:[outline-offset:2px]">
-                <input
-                  className="absolute top-0 right-0 bottom-0 left-0 w-full h-full opacity-0 cursor-pointer"
-                  type="color"
-                  aria-label="选择颜色"
-                  value={editing.picker}
-                  onChange={(event) =>
-                    changeInput(
-                      colorWithOpacity(event.target.value, editing.opacity),
-                    )
-                  }
-                />
-                <Pencil size={14} />
-                <span>选择颜色</span>
-              </label>
-              <span className="text-[var(--muted-foreground)] text-[length:.6875rem]">
-                实时作用于整套界面
-              </span>
-            </div>
+            <ColorPicker
+              label="选择颜色"
+              className="[--picker-width:min(19rem,calc(100dvw_-_2.5rem))]!"
+              background={resolvedPalettes[editing.themeId].background}
+              value={colorWithOpacity(editing.picker, editing.opacity)}
+              onValueChange={changeInput}
+            />
             <Input
               label="颜色值"
               className="text-[length:.75rem]! font-[family-name:ui-monospace,monospace]!"
-              aria-invalid={!validInput}
-              aria-describedby="color-input-hint"
+              description="支持 HEX（含透明度）、RGB、HSL 与 OKLCH。"
+              error={validInput ? undefined : "请输入有效颜色，例如 #7669C7 或 oklch(0.6 0.1 280)。"}
               value={editing.input}
               onChange={(event) => changeInput(event.target.value)}
               spellCheck={false}
             />
-            <p
-              id="color-input-hint"
-              className="-mt-2 mb-0 text-[length:.625rem] text-[var(--muted-foreground)] mx-0 data-[invalid=true]:text-[var(--theme-danger-soft-foreground)]"
-              data-invalid={!validInput}
-            >
-              {validInput
-                ? "支持 HEX（含透明度）、RGB、HSL 与 OKLCH。"
-                : "请输入有效颜色，例如 #7669C7 或 oklch(0.6 0.1 280)。"}
-            </p>
-            <label className="grid grid-cols-[1fr_auto] text-[length:.75rem] gap-2">
-              不透明度{" "}
-              <span className="text-[length:.6875rem] font-[family-name:ui-monospace,monospace] leading-[normal] font-normal not-italic text-[var(--muted-foreground)]">
-                {editing.opacity}%
-              </span>
-              <input
-                className="w-full col-span-full [accent-color:var(--primary)]"
-                aria-label="颜色不透明度"
-                type="range"
-                min="0"
-                max="100"
-                value={editing.opacity}
-                onChange={(event) =>
-                  changeInput(
-                    colorWithOpacity(
-                      editing.picker,
-                      Number(event.target.value),
-                    ),
-                  )
-                }
-              />
-            </label>
             <div className="flex flex-col border border-[var(--border)] rounded-[.75rem] bg-[var(--theme-background)] p-4 gap-3">
               <span className="text-[length:.625rem] text-[var(--muted-foreground)]">
                 应用预览
@@ -133,7 +91,7 @@ export function ColorEditor() {
               <div className="flex flex-wrap gap-2">
                 <Button>主要操作</Button>
                 <Button variant="secondary">次要操作</Button>
-                <Button variant="destructive">删除</Button>
+                <Button variant="danger">删除</Button>
               </div>
               <Input
                 label="输入预览"
@@ -171,7 +129,7 @@ export function ColorEditor() {
               {message}
             </p>
             <div className="flex justify-end flex-wrap pt-3 border-t border-t-[var(--border)] gap-2">
-              <Button variant="outline" onClick={cancelEditor}>
+              <Button variant="secondary" onClick={cancelEditor}>
                 取消修改
               </Button>
               <Button

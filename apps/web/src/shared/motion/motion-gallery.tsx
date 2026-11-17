@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/shared/ui/button";
+import { ChipGroup } from "@/shared/arc/chip-group/chip-group";
 import { motionCategories, motionCatalog, type MotionCategory } from "./motion-catalog";
 import { MotionPreviewCard } from "./motion-preview-card";
 import { useMemo, useState } from "react";
@@ -24,23 +24,16 @@ export function MotionGallery() {
           </p>
         </div>
         <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
-          <div aria-label="动效分类" className="flex flex-wrap gap-1.5" role="tablist">
-            {motionCategories.map((item) => (
-              <Button
-                aria-selected={category === item.id}
-                key={item.id}
-                onClick={() => setCategory(item.id)}
-                role="tab"
-                size="sm"
-                variant={category === item.id ? "default" : "ghost"}
-              >
-                {item.label}
-                <span className="text-[length:0.65rem] opacity-65 tabular-nums">
-                  {item.id === "all" ? motionCatalog.length : motionCatalog.filter((motion) => motion.category === item.id).length}
-                </span>
-              </Button>
-            ))}
-          </div>
+          <ChipGroup
+            label="动效分类"
+            multiple={false}
+            options={motionCategories.map((item) => ({
+              value: item.id,
+              label: `${item.label} ${item.id === "all" ? motionCatalog.length : motionCatalog.filter((motion) => motion.category === item.id).length}`,
+            }))}
+            value={[category]}
+            onValueChange={([next]) => setCategory(motionCategories.find((item) => item.id === next)?.id ?? "all")}
+          />
           <span className="text-[length:var(--type-size-xs)] text-[var(--ds-color-muted)]" role="status">
             {visible.length} 个动效样本 · 默认静止
           </span>

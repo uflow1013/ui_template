@@ -448,8 +448,8 @@ const mixRgb = (from: Rgb, to: Rgb, amount: number): Rgb => [
 ];
 
 export function readPalette(probe: HTMLElement): RevealPalette {
-  const base = resolve(probe, "var(--arc-surface-muted, #eee)");
-  const surface = resolve(probe, "var(--arc-surface, var(--arc-background, #fff))");
+  const base = resolve(probe, "var(--surface-muted, #eee)");
+  const surface = resolve(probe, "var(--surface, var(--background, #fff))");
   const luminance = (0.2126 * base[0] + 0.7152 * base[1] + 0.0722 * base[2]) / 255;
   // Light surfaces lift toward white; dark surfaces lift only a touch, so the shimmer stays calm in both themes.
   const highlight = mixRgb(base, [255, 255, 255], luminance > 0.5 ? 0.6 : 0.06);

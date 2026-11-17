@@ -18,10 +18,9 @@ export type ComponentExample = {
   title: string;
   description: string;
   group: ComponentGroupId;
-  source: "arc" | "shadcn";
   tier?: "pro";
   size?: DemoSize;
-  docs: string;
+  docs?: string;
   importStatement: string;
-  loadDemo: DemoLoader;
+  loadDemo?: DemoLoader;
 };

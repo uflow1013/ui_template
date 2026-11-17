@@ -8,8 +8,8 @@
   left: 0;
   overflow: hidden;
   border-radius: 14px;
-  background: var(--arc-surface-muted);
-  box-shadow: var(--arc-shadow-raised);
+  background: var(--surface-muted);
+  box-shadow: var(--shadow-raised);
   opacity: 0;
   will-change: transform, opacity;
 }

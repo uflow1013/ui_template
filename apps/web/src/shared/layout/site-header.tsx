@@ -1,44 +1,50 @@
 "use client";
 
-import { useThemeEditor } from "@/shared/providers/theme-provider";
-import { Badge } from "@/shared/arc/badge/badge";
 import { Breadcrumb } from "@/shared/arc/breadcrumb/breadcrumb";
+import { DropdownMenu } from "@/shared/arc/dropdown-menu/dropdown-menu";
 import { ArcProvider } from "@/shared/arc/lib/arc-provider";
-import { Separator } from "@/shared/ui/separator";
-import { SidebarTrigger } from "@/shared/ui/sidebar";
+import { useThemeEditor } from "@/shared/providers/theme-provider";
 import { themes } from "@template/design-tokens/themes";
+import { Check, Moon, Sun } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
+import { navigationGroups } from "./app-sidebar";
 
-const pageTitles: Record<string, string> = {
-  "/": "主题概览",
-  "/colors": "颜色系统",
-  "/typography": "字体层级",
-  "/spacing": "间距与形状",
-  "/showcase": "组件预览",
-  "/motion": "动效预览",
-  "/styles": "风格预览",
-  "/patterns": "UI 模式",
-  "/orchestratelq": "系统工作台",
-};
+const pages = navigationGroups.flatMap((group) => group.items);
 
-export function SiteHeader() {
+export function SiteHeader({ navigationTrigger }: { navigationTrigger: ReactNode }) {
   const pathname = usePathname().replace(/\/$/, "") || "/";
-  const title = pageTitles[pathname] ?? "设计主题";
-  const { activeId, dirty } = useThemeEditor();
+  const title = pages.find((page) => page.url === pathname)?.title ?? "设计主题";
+  const { activeId, dirty, selectTheme } = useThemeEditor();
   const theme = themes.find((entry) => entry.id === activeId)!;
+  const ThemeIcon = theme.id === "night" ? Moon : Sun;
 
   return (
-    <header className="z-20 flex h-14 shrink-0 items-center gap-3 border-b border-border/80 bg-surface px-4 md:px-6">
-      <SidebarTrigger aria-label="切换导航栏" className="-ml-1" />
-      <Separator className="h-4" orientation="vertical" />
-      <ArcProvider link={Link}>
-        <Breadcrumb ariaLabel="当前位置" items={[{ label: "设计系统", href: "/" }, { label: title }]} />
-      </ArcProvider>
-      <Badge className="ml-auto shrink-0" size="sm" tone="info" outline dot>
-        {theme.name}
-        {dirty ? " · 预览" : ""}
-      </Badge>
+    <header className="z-20 flex h-15 shrink-0 items-center gap-3 border-b border-border bg-background px-4 md:gap-4 md:px-6">
+      <div className="shrink-0">{navigationTrigger}</div>
+      <div className="min-w-0">
+        <span aria-current="page" className="block truncate text-sm font-medium min-[30rem]:hidden">{title}</span>
+        <div className="hidden min-[30rem]:block">
+          <ArcProvider link={Link}>
+            <Breadcrumb ariaLabel="当前位置" items={pathname === "/" ? [{ label: title }] : [{ label: "澄序", href: "/" }, { label: title }]} />
+          </ArcProvider>
+        </div>
+      </div>
+      <div className="ml-auto flex shrink-0 items-center gap-2">
+        <span aria-live="polite" className="sr-only min-[30rem]:not-sr-only min-[30rem]:text-xs min-[30rem]:text-[var(--text-secondary)]">
+          {dirty ? "预览中" : ""}
+        </span>
+        <DropdownMenu
+          icon={<ThemeIcon size={15} />}
+          items={themes.map((entry) => ({
+            label: entry.id === activeId ? `${entry.name}（当前）` : entry.name,
+            icon: entry.id === activeId ? <Check size={15} /> : undefined,
+            onSelect: () => selectTheme(entry.id),
+          }))}
+          label={theme.name}
+        />
+      </div>
     </header>
   );
 }

@@ -10,23 +10,23 @@
   display: block;
   flex: none;
   overflow: visible;
-  color: var(--spark-color, var(--arc-accent));
+  color: var(--spark-color, var(--accent));
   transition: color 320ms cubic-bezier(.22, 1, .36, 1);
 }
 
 /* Error is a muted danger: clearly not working, never alarming. */
 .root[data-status="error"] .mark {
-  color: color-mix(in oklab, var(--arc-danger) 72%, var(--arc-text-muted));
+  color: color-mix(in oklab, var(--danger) 72%, var(--text-muted));
 }
 
 .pill {
   gap: 8px;
   height: 28px;
   padding: 0 12px 0 7px;
-  border: 1px solid var(--arc-border-subtle);
-  border-radius: var(--arc-radius-control);
-  background: var(--arc-surface);
-  color: var(--arc-text-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  color: var(--text-secondary);
   font-size: 13px;
   font-weight: 400;
   line-height: 18px;
@@ -35,14 +35,14 @@
 
 .avatar {
   justify-content: center;
-  border: 1px solid var(--arc-border-subtle);
+  border: 1px solid var(--border-subtle);
   border-radius: 999px;
-  background: color-mix(in oklab, var(--spark-color, var(--arc-accent)) 8%, var(--arc-surface));
+  background: color-mix(in oklab, var(--spark-color, var(--accent)) 8%, var(--surface));
   transition: background-color 320ms cubic-bezier(.22, 1, .36, 1);
 }
 
 .avatar[data-status="error"] {
-  background: color-mix(in oklab, var(--arc-danger) 7%, var(--arc-surface));
+  background: color-mix(in oklab, var(--danger) 7%, var(--surface));
 }
 
 .labelBox {

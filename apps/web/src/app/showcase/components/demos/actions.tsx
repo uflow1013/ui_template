@@ -1,8 +1,7 @@
 "use client";
 
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/arc/button/button";
 import { ButtonGroup } from "@/shared/arc/button-group/button-group";
-import { Toggle } from "@/shared/ui/toggle";
 import { ToggleGroup, ToggleGroupItem } from "@/shared/arc/toggle-group/toggle-group";
 import {
   AlignCenter,
@@ -13,7 +12,6 @@ import {
   Italic,
   MoreHorizontal,
   Plus,
-  Star,
   Underline,
 } from "lucide-react";
 import { useState } from "react";
@@ -29,30 +27,24 @@ export function ButtonsDemo() {
           新建项目
         </Button>
         <Button variant="secondary" onClick={() => notify("草稿已保存")}>
-          次要操作
-        </Button>
-        <Button variant="outline" onClick={() => notify("草稿已保存")}>
           保存草稿
         </Button>
         <Button variant="ghost" onClick={() => notify("已取消操作")}>
           取消
         </Button>
-        <Button variant="destructive" onClick={() => notify("已演示危险操作")}>
+        <Button variant="danger" onClick={() => notify("已演示危险操作")}>
           危险操作
         </Button>
-        <Button variant="link" onClick={() => notify("已点击文字链接")}>
-          文字链接
-        </Button>
         <Button disabled>暂不可用</Button>
+        <Button loading variant="secondary">正在保存</Button>
       </div>
       <div className={row}>
-        <Button size="xs">超小</Button>
         <Button size="sm">小号</Button>
         <Button>默认</Button>
         <Button size="lg">大号</Button>
         <Button
-          size="icon"
-          variant="outline"
+          size="sm"
+          variant="secondary"
           aria-label="更多按钮操作"
           onClick={() => notify("已点击图标按钮")}
         >
@@ -79,23 +71,6 @@ export function ButtonGroupDemo() {
         },
       ]}
     />
-  );
-}
-
-export function ToggleDemo() {
-  return (
-    <div className={row}>
-      <Toggle aria-label="收藏项目" variant="outline">
-        <Star />
-        收藏
-      </Toggle>
-      <Toggle aria-label="粗体" defaultPressed>
-        <Bold />
-      </Toggle>
-      <Toggle aria-label="不可用的斜体" disabled>
-        <Italic />
-      </Toggle>
-    </div>
   );
 }
 

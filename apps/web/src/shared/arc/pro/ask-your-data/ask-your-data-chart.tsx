@@ -144,7 +144,7 @@ export function Plot({ result, kind, reduced }: PlotProps) {
             transition={{ duration: .46, ease: [0.22, 1, 0.36, 1], delay: s * .04 }} />;
         })}
         {active !== null ? result.series.map((series, s) => <circle key={series.id} cx={cx(active)} cy={y(series.values[active] ?? 0)} r={3.5}
-          fill="var(--arc-surface)" stroke={seriesColor(result, s)} strokeWidth={2} />) : null}
+          fill="var(--surface)" stroke={seriesColor(result, s)} strokeWidth={2} />) : null}
       </>}
     </svg> : null}
 

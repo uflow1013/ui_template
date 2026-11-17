@@ -46,8 +46,8 @@ const reveal = physical({ visualDuration: .9, bounce: 0 });
 const glide = physical(spring.snappy, .01);
 const follow = { stiffness: glide.stiffness, damping: glide.damping, restDelta: .01 };
 /** Each top level branch takes the next chart series (the first in the accent), and its descendants step toward the surface, so a branch reads as one family. Past four branches fall back to ink. */
-const hueOf = (node: Flat) => node.branch < 4 ? `var(--series-${node.branch + 1})` : "color-mix(in oklab, var(--arc-foreground) 34%, var(--arc-surface))";
-const shadeOf = (node: Flat) => `color-mix(in oklab, ${hueOf(node)} ${Math.round(100 * Math.pow(.7, Math.max(0, node.depth - 1)))}%, var(--arc-surface))`;
+const hueOf = (node: Flat) => node.branch < 4 ? `var(--series-${node.branch + 1})` : "color-mix(in oklab, var(--foreground) 34%, var(--surface))";
+const shadeOf = (node: Flat) => `color-mix(in oklab, ${hueOf(node)} ${Math.round(100 * Math.pow(.7, Math.max(0, node.depth - 1)))}%, var(--surface))`;
 const GAP = 2, TIP = 14;
 const grouped = new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 });
 const percent = new Intl.NumberFormat("en-US", { style: "percent", maximumFractionDigits: 1 });

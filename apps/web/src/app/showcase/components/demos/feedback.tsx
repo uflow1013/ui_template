@@ -5,8 +5,7 @@ import { EmptyState } from "@/shared/arc/empty-state/empty-state";
 import { Progress } from "@/shared/arc/progress/progress";
 import { Skeleton } from "@/shared/arc/skeleton/skeleton";
 import { useToastStack } from "@/shared/arc/toast-stack/toast-stack";
-import { Button } from "@/shared/ui/button";
-import { Spinner } from "@/shared/ui/spinner";
+import { Button } from "@/shared/arc/button/button";
 import { Bell, Check, FolderOpen, Plus } from "lucide-react";
 import { useState } from "react";
 import { row, stack, useNotify } from "./demo-utils";
@@ -32,7 +31,7 @@ export function ProgressDemo() {
       <Button
         className="justify-self-start"
         size="sm"
-        variant="outline"
+        variant="secondary"
         onClick={() => setValue(value >= 100 ? 0 : Math.min(100, value + 12))}
       >
         {value >= 100 ? "重新开始" : "模拟进度 +12%"}
@@ -44,22 +43,6 @@ export function ProgressDemo() {
 export function SkeletonDemo() {
   return (
     <Skeleton className="w-full max-w-sm" label="正在加载内容" avatar />
-  );
-}
-
-export function SpinnerDemo() {
-  return (
-    <div className={row}>
-      <Button disabled>
-        <Spinner />
-        正在保存
-      </Button>
-      <Button disabled variant="outline">
-        <Spinner />
-        加载中
-      </Button>
-      <Spinner className="size-6 text-primary" aria-label="正在加载" />
-    </div>
   );
 }
 
@@ -86,7 +69,7 @@ export function ToastDemo() {
   return (
     <div className={row}>
       <Button
-        variant="outline"
+        variant="secondary"
         onClick={() =>
           toast({
             title: "修改已保存",
@@ -99,7 +82,7 @@ export function ToastDemo() {
         成功提示
       </Button>
       <Button
-        variant="outline"
+        variant="secondary"
         onClick={() =>
           toast({
             title: "连接暂时中断",

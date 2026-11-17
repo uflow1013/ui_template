@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/shared/arc/button/button";
 import { ActionButton } from "@/shared/arc/action-button/action-button";
 import { ActionSwap } from "@/shared/arc/action-swap/action-swap";
 import { ConfirmMorph } from "@/shared/arc/confirm-morph/confirm-morph";
@@ -229,15 +230,16 @@ export function ReactionsDemo() {
 export function IconMorphDemo() {
   const [open, setOpen] = useState(false);
   return (
-    <button
+    <Button
       type="button"
-      className="grid size-10 place-items-center rounded-lg border"
+      size="sm"
+      variant="secondary"
       aria-label={open ? "关闭菜单图标" : "打开菜单图标"}
       aria-pressed={open}
       onClick={() => setOpen(!open)}
     >
       <IconMorph name="menu" state={open} size={20} />
-    </button>
+    </Button>
   );
 }
 

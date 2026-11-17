@@ -7,13 +7,6 @@ import { Select } from "@/shared/arc/select/select";
 import { Slider } from "@/shared/arc/slider/slider";
 import { Switch } from "@/shared/arc/switch/switch";
 import { Textarea } from "@/shared/arc/textarea/textarea";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-  InputGroupText,
-} from "@/shared/ui/input-group";
-import { Mail, Search } from "lucide-react";
 import { useState } from "react";
 import { stack } from "./demo-utils";
 
@@ -32,31 +25,6 @@ export function InputDemo() {
         type="email"
       />
       <Input disabled label="禁用输入框" placeholder="当前不可编辑" />
-    </div>
-  );
-}
-
-export function InputGroupDemo() {
-  return (
-    <div className={stack}>
-      <InputGroup>
-        <InputGroupAddon>
-          <Search />
-        </InputGroupAddon>
-        <InputGroupInput aria-label="搜索项目" placeholder="搜索项目…" />
-        <InputGroupAddon align="inline-end">
-          <InputGroupText>⌘ K</InputGroupText>
-        </InputGroupAddon>
-      </InputGroup>
-      <InputGroup>
-        <InputGroupAddon>
-          <Mail />
-        </InputGroupAddon>
-        <InputGroupInput aria-label="团队邮箱名称" placeholder="your-team" />
-        <InputGroupAddon align="inline-end">
-          <InputGroupText>@example.com</InputGroupText>
-        </InputGroupAddon>
-      </InputGroup>
     </div>
   );
 }

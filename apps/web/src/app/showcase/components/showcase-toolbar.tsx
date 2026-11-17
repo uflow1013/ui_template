@@ -1,58 +1,33 @@
 "use client";
 
-import { Button } from "@/shared/ui/button";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/shared/ui/input-group";
-import { ChevronDown, Search, X } from "lucide-react";
+import { SearchField } from "@/shared/arc/search-field/search-field";
+import { Select } from "@/shared/arc/select/select";
 import { componentGroups } from "./component-registry";
 import { useShowcase } from "./showcase-context";
 
+const categories = [
+  { value: "all", label: "全部分类" },
+  ...componentGroups.map(({ id, name }) => ({ value: id, label: name })),
+];
+const previewOptions = [
+  { value: "all", label: "全部预览类型" },
+  { value: "interactive", label: "交互示例" },
+  { value: "reference", label: "仅组件信息" },
+];
+
 export function ShowcaseToolbar() {
-  const { query, setQuery, category, setCategory, visible } = useShowcase();
-  const filtering = query.trim() !== "" || category !== "all";
+  const { query, setQuery, category, setCategory, preview, setPreview, visible } = useShowcase();
+  const filtering = query.trim() !== "" || category !== "all" || preview !== "all";
 
   return (
-    <div role="search" aria-label="搜索与筛选组件" className="grid min-w-0 max-w-xl grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2.5 gap-y-2">
-      <InputGroup className="h-10">
-        <InputGroupAddon>
-          <Search aria-hidden="true" />
-        </InputGroupAddon>
-        <InputGroupInput
-          aria-label="搜索组件"
-          placeholder="搜索组件…"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
-        {query && (
-          <InputGroupAddon align="inline-end">
-            <Button
-              aria-label="清空搜索"
-              size="icon-xs"
-              variant="ghost"
-              onClick={() => setQuery("")}
-            >
-              <X aria-hidden="true" />
-            </Button>
-          </InputGroupAddon>
-        )}
-      </InputGroup>
-      <div className="relative">
-        <select
-          aria-label="按分类筛选"
-          className="h-10 appearance-none rounded-lg border border-input bg-[var(--theme-field-background)] py-0 pr-8 pl-3 text-sm text-foreground"
-          value={category}
-          onChange={(event) => setCategory(event.target.value)}
-        >
-          <option value="all">全部分类</option>
-          {componentGroups.map(({ id, name }) => <option key={id} value={id}>{name}</option>)}
-        </select>
-        <ChevronDown aria-hidden="true" className="pointer-events-none absolute top-1/2 right-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" />
+    <div role="search" aria-label="搜索与筛选组件" className="grid min-w-0 max-w-2xl grid-cols-2 gap-3 sm:grid-cols-[minmax(0,1fr)_10rem_10rem]">
+      <div className="col-span-2 min-w-0 sm:col-span-1">
+        <SearchField label="搜索组件" placeholder="搜索组件…" value={query} onValueChange={setQuery} />
       </div>
-      <span className={filtering ? "col-span-full text-xs text-muted-foreground tabular-nums" : "sr-only"} role="status">
-        {filtering ? `${visible.length} 个匹配示例` : ""}
+      <Select label="按分类筛选" options={categories} value={category} onValueChange={setCategory} />
+      <Select label="按预览类型筛选" options={previewOptions} value={preview} onValueChange={setPreview} />
+      <span className={filtering ? "col-span-full text-xs text-[var(--text-secondary)] tabular-nums" : "sr-only"} role="status">
+        {filtering ? `${visible.length} 项匹配结果` : ""}
       </span>
     </div>
   );

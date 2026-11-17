@@ -14,7 +14,7 @@ export type VoiceOrbState = "idle" | "listening" | "thinking" | "speaking";
  * The visual heart of a voice mode: a luminous fluid sphere in the accent colour, drawn by a small WebGL shader. Idle breathes
  * slowly, listening swells with the microphone level and sends soft ripples outward, thinking draws in and lets a band of light
  * orbit its rim, and speaking brightens and ripples with the voice. Every parameter follows its state on a spring, so changes
- * interrupt and blend mid-motion instead of cutting. Colours come from `--arc-accent` (or `--voice-orb-tint` and
+ * interrupt and blend mid-motion instead of cutting. Colours come from `--accent` (or `--voice-orb-tint` and
  * `--voice-orb-tint-2` on any ancestor) and update with the theme. It pauses while offscreen or hidden, falls back to a canvas
  * gradient without WebGL, and reduced motion draws one still frame per state.
  */
@@ -78,9 +78,9 @@ function readPalette(node: HTMLElement): Palette {
     const data = ctx.getImageData(0, 0, 1, 1).data;
     return [data[0], data[1], data[2]];
   };
-  const bg = read(["--arc-background"], [255, 255, 255]);
+  const bg = read(["--background"], [255, 255, 255]);
   const dark = (bg[0] * .299 + bg[1] * .587 + bg[2] * .114) < 128;
-  const c1 = read(["--voice-orb-tint", "--arc-accent"], [90, 90, 90]);
+  const c1 = read(["--voice-orb-tint", "--accent"], [90, 90, 90]);
   const c2 = style.getPropertyValue("--voice-orb-tint-2").trim() ? read(["--voice-orb-tint-2"], c1) : shift(c1, 26, dark ? .08 : .14);
   return { c1, c2, c3: mix(c1, [255, 255, 255], dark ? .78 : .72), dark };
 }

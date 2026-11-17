@@ -8,7 +8,7 @@ export interface AskYourDataSeries {
   label: string;
   /** One value per category, in category order. */
   values: number[];
-  /** Any CSS color. Defaults to --arc-series-1 through --arc-series-4 in order. */
+  /** Any CSS color. Defaults to --series-1 through --series-4 in order. */
   color?: string;
 }
 

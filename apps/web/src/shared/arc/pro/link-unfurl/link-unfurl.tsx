@@ -121,7 +121,7 @@ export const linkUnfurlSamples: LinkUnfurlPreview[] = [
 const URL_RE = /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(:\d+)?(\/[^\s]*)?$/i;
 const GAP = 10;
 const RADIUS = 18;
-/* Motion tokens (--arc-ease-enter, --arc-ease-standard, --arc-ease-exit) for the WAAPI calls below. */
+/* Motion tokens (--ease-enter, --ease-standard, --ease-exit) for the WAAPI calls below. */
 const EASE_ENTER = "cubic-bezier(.16, 1, .3, 1)";
 const EASE_STANDARD = "cubic-bezier(.22, 1, .36, 1)";
 const EASE_EXIT = "cubic-bezier(.7, 0, .84, 0)";

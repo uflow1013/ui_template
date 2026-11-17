@@ -15,7 +15,7 @@ export interface InkFluidProps {
   children?: ReactNode;
   /** How dark the ink gets, from 0 to 1. Defaults to 0.5. */
   intensity?: number;
-  /** How much fresh ink takes the accent colour (`--arc-accent`), from 0 to 1. It fades to neutral as it spreads. Defaults to 0.8. */
+  /** How much fresh ink takes the accent colour (`--accent`), from 0 to 1. It fades to neutral as it spreads. Defaults to 0.8. */
   tint?: number;
   /** How hard the pointer stirs, from 0 to 1. Defaults to 0.5. */
   force?: number;

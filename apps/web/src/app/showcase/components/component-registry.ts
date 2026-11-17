@@ -1,7 +1,8 @@
 import { arcCatalog } from "./arc-catalog";
 import { arcDemoLoaders } from "./arc-demos/loaders";
+import { arcProCatalog } from "./arc-pro-catalog";
 import type { ComponentExample, DemoSize } from "./example-types";
-import { migratedExamples, retainedExamples } from "./legacy-catalog";
+import { demoOverrides } from "./demo-overrides";
 
 export const componentGroups = [
   {
@@ -75,24 +76,50 @@ const demoSizes: Readonly<Partial<Record<string, DemoSize>>> = {
 };
 
 const sizeOrder = { compact: 0, wide: 1, full: 2 } as const;
+const blockDocs = new Set([
+  "command-palette",
+  "file-upload",
+  "multi-step-form",
+  "notification-center",
+  "otp-input",
+  "selection-toolbar",
+]);
+
+function docsFor(slug: string) {
+  if (slug === "gradient-mesh" || slug === "kbd") return undefined;
+  return `https://uiarc.dev/components/${blockDocs.has(slug) ? "blocks/" : ""}${slug}`;
+}
 
 export const componentExamples: ComponentExample[] = [
   ...arcCatalog.map(([slug, group, title, name, description, importStatement]): ComponentExample => {
-    const migrated = migratedExamples[slug];
+    const override = demoOverrides[slug];
     return {
-      id: migrated?.id ?? (slug === "toast" ? "arc-toast" : slug),
+      id: override?.id ?? (slug === "toast" ? "arc-toast" : slug),
       slug,
       group,
       title,
       name,
       description,
-      source: "arc",
       tier: importStatement.includes("@/shared/arc/pro/") ? "pro" : undefined,
       size: demoSizes[slug],
-      docs: `https://uiarc.dev/components/${slug}`,
+      docs: docsFor(slug),
       importStatement,
-      loadDemo: migrated?.loadDemo ?? arcDemoLoaders[slug],
+      loadDemo: override?.loadDemo ?? arcDemoLoaders[slug],
     };
   }),
-  ...retainedExamples,
-].sort((first, second) => sizeOrder[first.size ?? "compact"] - sizeOrder[second.size ?? "compact"]);
+  ...arcProCatalog.map(([slug, group, title, name, description, exportName]): ComponentExample => ({
+    id: slug,
+    slug,
+    group,
+    title,
+    name,
+    description,
+    tier: "pro",
+    docs: docsFor(slug),
+    importStatement: `import { ${exportName} } from "@/shared/arc/pro/${slug}/${slug}";`,
+    loadDemo: arcDemoLoaders[slug],
+  })),
+].sort((first, second) =>
+  Number(Boolean(second.loadDemo)) - Number(Boolean(first.loadDemo)) ||
+  sizeOrder[first.size ?? "compact"] - sizeOrder[second.size ?? "compact"]
+);

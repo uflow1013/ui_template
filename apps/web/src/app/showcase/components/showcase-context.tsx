@@ -9,15 +9,17 @@ import type { ComponentExample as Example } from "./example-types";
 function useShowcaseState() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
+  const [preview, setPreview] = useState("all");
   const { activeId, selectTheme } = useThemeEditor();
   const normalizedQuery = query.trim().toLocaleLowerCase();
   const matchesQuery = (example: Example) =>
-    `${example.title} ${example.name} ${example.id} ${example.slug ?? ""} ${example.description} ${example.source} ${example.tier ?? ""} ${componentGroups.find((group) => group.id === example.group)?.name}`
+    `${example.title} ${example.name} ${example.id} ${example.slug ?? ""} ${example.description} Arc ${example.tier ?? ""} ${componentGroups.find((group) => group.id === example.group)?.name}`
       .toLocaleLowerCase()
       .includes(normalizedQuery);
   const visible = componentExamples.filter(
     (example) =>
       (category === "all" || example.group === category) &&
+      (preview === "all" || Boolean(example.loadDemo) === (preview === "interactive")) &&
       matchesQuery(example),
   );
   const groups = componentGroups
@@ -29,12 +31,15 @@ function useShowcaseState() {
   const reset = () => {
     setQuery("");
     setCategory("all");
+    setPreview("all");
   };
   return {
     query,
     setQuery,
     category,
     setCategory,
+    preview,
+    setPreview,
     activeId,
     selectTheme,
     visible,

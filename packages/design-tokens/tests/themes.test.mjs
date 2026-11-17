@@ -26,12 +26,17 @@ test('overrides keep downstream semantic aliases live and can be removed', () =>
   assert.equal(resolveTheme('studio', { accent: '#123456' })['button-primary'], 'var(--theme-accent)');
   assert.notEqual(resolveTheme('clarity').accent, '#123456');
 });
-test('dark mode has independent surfaces and both component and legacy mappings', () => {
+test('dark mode has independent surfaces and Arc and template role mappings', () => {
   const dark = themeStyle('night');
   assert.equal(dark.colorScheme, 'dark');
   assert.equal(dark['--shadow-soft'], 'none');
   assert.notEqual(dark['--theme-background'], dark['--theme-surface']);
   assert.equal(dark['--primary-foreground'], 'var(--theme-button-primary-foreground)');
+  assert.equal(dark['--accent'], 'var(--theme-accent)');
+  assert.equal(dark['--accent-foreground'], 'var(--theme-accent-foreground)');
+  assert.equal(dark['--accent-subtle'], 'var(--theme-accent-soft)');
+  assert.equal(dark['--surface-raised'], 'var(--theme-overlay)');
+  assert.equal(dark['--control-on'], 'var(--theme-control-selected)');
   assert.equal(dark['--ds-color-canvas'], 'var(--theme-background)');
   assert.equal(themeStyle('studio').colorScheme, 'light');
 });
@@ -59,7 +64,8 @@ test('boot restores saved mode and only valid known overrides before hydration',
   const saved = { version: 1, activeId: 'night', overrides: { night: { accent: '#123456', unknown: '#fff', background: 'var(--unknown)' } } };
   runInNewContext(themeBootScript(), { localStorage: { getItem: () => JSON.stringify(saved) }, document: { documentElement: root }, CSS: { supports: () => true } });
   assert.equal(root.style.colorScheme, 'dark');
-  assert.equal(root.dataset.theme, 'night');
+  assert.equal(root.dataset.theme, 'dark');
+  assert.equal(root.dataset.themeId, 'night');
   assert.equal(applied.dark, true);
   assert.equal(applied['--theme-accent'], '#123456');
   assert.equal(applied['--theme-unknown'], undefined);

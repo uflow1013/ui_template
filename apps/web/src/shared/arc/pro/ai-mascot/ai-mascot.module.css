@@ -1,22 +1,22 @@
 /* Colors are tokens, so the mascot follows the theme and the accent. Override any --mascot-* variable to restyle it. */
 .root {
-  --mascot-body: var(--arc-accent);
-  --mascot-eye: var(--arc-accent-foreground, var(--arc-background));
+  --mascot-body: var(--accent);
+  --mascot-eye: var(--accent-foreground, var(--background));
   --mascot-dot: var(--mascot-body);
   --mascot-shade: color-mix(in oklab, var(--mascot-body) 85%, black);
-  --mascot-ground: color-mix(in oklab, var(--arc-foreground) 9%, transparent);
+  --mascot-ground: color-mix(in oklab, var(--foreground) 9%, transparent);
   position: relative;
   display: inline-flex;
   flex: none;
   vertical-align: middle;
   -webkit-tap-highlight-color: transparent;
 }
-.root[data-tone="ink"] { --mascot-body: var(--arc-foreground); --mascot-eye: var(--arc-background); }
+.root[data-tone="ink"] { --mascot-body: var(--foreground); --mascot-eye: var(--background); }
 .root[data-tone="soft"] {
-  --mascot-body: var(--arc-surface-muted);
-  --mascot-eye: var(--arc-foreground);
-  --mascot-dot: var(--arc-text-muted);
-  --mascot-shade: color-mix(in oklab, var(--arc-surface-muted) 90%, var(--arc-foreground));
+  --mascot-body: var(--surface-muted);
+  --mascot-eye: var(--foreground);
+  --mascot-dot: var(--text-muted);
+  --mascot-shade: color-mix(in oklab, var(--surface-muted) 90%, var(--foreground));
 }
 .root[data-tone="custom"] { --mascot-eye: color-mix(in oklab, var(--mascot-body) 20%, black); }
 
@@ -24,7 +24,7 @@
 
 .body { fill: var(--mascot-body); }
 .shade { fill: var(--mascot-shade); }
-.outline { fill: none; stroke: var(--arc-border); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.outline { fill: none; stroke: var(--border); stroke-width: 1px; vector-effect: non-scaling-stroke; }
 .eyes { stroke: var(--mascot-eye); stroke-linecap: round; fill: none; }
 .dot { fill: var(--mascot-dot); }
 .glint { fill: var(--mascot-eye); }

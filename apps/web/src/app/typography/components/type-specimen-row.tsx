@@ -1,6 +1,7 @@
 "use client";
 
-import { useId, useState, type CSSProperties } from "react";
+import { ToggleGroup, ToggleGroupItem } from "@/shared/arc/toggle-group/toggle-group";
+import { useState, type CSSProperties } from "react";
 
 type ColorOption = {
   token: string;
@@ -120,7 +121,6 @@ export function TypeSpecimenRow({
   sample,
   sampleClassName,
 }: TypeSpecimenRowProps) {
-  const groupId = useId();
   const options = colorOptions(size);
   const [selectedToken, setSelectedToken] = useState(options[0].token);
   const selected =
@@ -172,34 +172,22 @@ export function TypeSpecimenRow({
           <div className="grid grid-cols-[3rem_minmax(0,_1fr)] items-baseline min-w-0 gap-3">
             <dt className="text-[var(--ds-color-muted)] text-[length:var(--type-size-xs)]"></dt>
             <dd className="text-[var(--ds-color-ink-soft)] text-[length:var(--type-size-xs)] tabular-nums font-[number:var(--type-weight-medium)] m-0">
-              <fieldset className="flex flex-wrap min-w-0 border-0 m-0 p-0 gap-2">
-                <legend className="sr-only">{name}示例配色</legend>
+              <ToggleGroup label={`${name}示例配色`} onValueChange={setSelectedToken} size="sm" value={selected.token}>
                 {options.map((option) => (
-                  <label
-                    className="relative grid w-8 h-8 place-items-center cursor-pointer"
+                  <ToggleGroupItem
                     key={option.token}
+                    label={`${option.name} · ${option.token}`}
                     title={`${option.name} · ${option.token}：${option.usage}`}
+                    value={option.token}
                   >
-                    <input
-                      className="peer sr-only"
-                      type="radio"
-                      name={groupId}
-                      value={option.token}
-                      checked={selected.token === option.token}
-                      onChange={() => setSelectedToken(option.token)}
-                      aria-label={`${option.name} · ${option.token}`}
-                    />
                     <span
-                      className="block w-7 h-7 bg-[var(--sample-color)] [border:3px_solid_transparent] rounded-[var(--ds-radius-sm)] shadow-[0_0_0_1px_var(--ds-color-line)] peer-checked:border-[#fff] peer-checked:shadow-[0_0_0_1px_var(--ds-color-line-strong)] peer-focus-visible:[outline:2px_solid_var(--ds-color-focus-ring)] peer-focus-visible:[outline-offset:3px]"
-                      style={
-                        {
-                          "--sample-color": `var(--theme-${option.token})`,
-                        } as CSSProperties
-                      }
+                      aria-hidden="true"
+                      className="block size-4 rounded-sm border border-border bg-[var(--sample-color)]"
+                      style={{ "--sample-color": `var(--theme-${option.token})` } as CSSProperties}
                     />
-                  </label>
+                  </ToggleGroupItem>
                 ))}
-              </fieldset>
+              </ToggleGroup>
             </dd>
           </div>
         </dl>

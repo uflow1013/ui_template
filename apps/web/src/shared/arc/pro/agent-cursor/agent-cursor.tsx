@@ -565,7 +565,7 @@ export function AgentCursor({
     <div
       ref={rootRef}
       className={[styles.root, className].filter(Boolean).join(" ")}
-      style={{ "--agent": agentColor, "--human": collaborator?.color ?? "var(--arc-series-2)" } as CSSProperties}
+      style={{ "--agent": agentColor, "--human": collaborator?.color ?? "var(--series-2)" } as CSSProperties}
       onPointerEnter={() => { engaged.current.hover = true; }}
       onPointerLeave={() => { engaged.current.hover = false; }}
       onFocus={() => { engaged.current.focus = true; }}

@@ -2,7 +2,7 @@ import type { ComponentGroupId } from "./example-types";
 
 // The original entries use Arc UI snapshot 8302b52ed9dc79ae7ca699b158a98dfdf09656f7.
 export const arcCatalog = [
-  ["button", "actions", "按钮", "Button", "6 种操作变体、4 种尺寸与禁用状态", "import { Button } from \"@/shared/ui/button\";"],
+  ["button", "actions", "按钮", "Button", "4 种操作变体、3 种尺寸与加载状态", "import { Button } from \"@/shared/arc/button/button\";"],
   ["action-swap", "actions", "操作状态切换", "Action swap", "Swap an action label while preserving its place and intent.", "import { ActionSwap } from \"@/shared/arc/action-swap/action-swap\";"],
   ["action-button", "actions", "操作按钮", "Action button", "A compact button for frequent toolbar actions.", "import { ActionButton } from \"@/shared/arc/action-button/action-button\";"],
   ["split-button", "actions", "分割按钮", "Split button", "A primary action with a menu of nearby alternatives.", "import { SplitButton } from \"@/shared/arc/split-button/split-button\";"],

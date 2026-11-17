@@ -1,20 +1,20 @@
 .root {
-  --ctd-accent: var(--arc-accent);
-  --ctd-paper: color-mix(in oklab, var(--arc-surface-muted) 38%, var(--arc-surface));
-  --ctd-glass: color-mix(in oklab, var(--arc-surface-raised) 80%, transparent);
+  --ctd-accent: var(--accent);
+  --ctd-paper: color-mix(in oklab, var(--surface-muted) 38%, var(--surface));
+  --ctd-glass: color-mix(in oklab, var(--surface-raised) 80%, transparent);
   container-type: inline-size;
   display: grid;
-  gap: var(--arc-space-2);
+  gap: var(--space-2);
   width: 100%;
   min-width: 0;
-  padding: var(--arc-space-2);
-  border: 1px solid var(--arc-border);
-  border-radius: var(--arc-radius-surface);
-  background: var(--arc-surface);
-  color: var(--arc-foreground);
-  font-family: var(--arc-font-body);
-  letter-spacing: var(--arc-tracking-body);
-  line-height: var(--arc-leading-body);
+  padding: var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-surface);
+  background: var(--surface);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  letter-spacing: var(--tracking-body);
+  line-height: var(--leading-body);
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -22,14 +22,14 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: var(--arc-space-4);
-  padding: var(--arc-space-2) var(--arc-space-4) var(--arc-space-1);
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-4) var(--space-1);
 }
-.title { margin: 0; font-size: var(--arc-text-base); font-weight: 500; }
+.title { margin: 0; font-size: var(--text-base); font-weight: 500; }
 .count {
   margin: 0;
-  font-size: var(--arc-text-sm);
-  color: var(--arc-text-secondary);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -40,10 +40,10 @@
   aspect-ratio: 16 / 10;
   min-width: 0;
   overflow: hidden;
-  border: 1px solid var(--arc-border-subtle);
-  border-radius: calc(var(--arc-radius-surface) - var(--arc-space-2));
+  border: 1px solid var(--border-subtle);
+  border-radius: calc(var(--radius-surface) - var(--space-2));
   background: var(--ctd-paper);
-  box-shadow: inset 0 1px 0 color-mix(in oklab, var(--arc-surface-raised) 70%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in oklab, var(--surface-raised) 70%, transparent);
   isolation: isolate;
 }
 
@@ -57,13 +57,13 @@
 }
 
 .svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; overflow: visible; }
-.gridDot { fill: var(--arc-border); }
+.gridDot { fill: var(--border); }
 
 .ink {
-  color: var(--arc-foreground);
+  color: var(--foreground);
   fill: currentColor;
   stroke: none;
-  transition: opacity var(--arc-duration-fast) var(--arc-ease-exit);
+  transition: opacity var(--duration-fast) var(--ease-exit);
 }
 .ink[data-mode="clean"] {
   fill: none;
@@ -80,7 +80,7 @@
   fill: currentColor;
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--arc-duration-fast) var(--arc-ease-standard);
+  transition: opacity var(--duration-fast) var(--ease-standard);
 }
 .nib[data-show] { opacity: .92; }
 .nib[data-tool="pen"][data-show] { opacity: .55; }
@@ -89,44 +89,44 @@
   stroke: currentColor;
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--arc-duration-fast) var(--arc-ease-standard);
+  transition: opacity var(--duration-fast) var(--ease-standard);
 }
 .nibRing[data-show] { opacity: .32; }
 .nibRing[data-show][data-down] { opacity: .5; }
 
 .hint {
   position: absolute;
-  inset: 0 var(--arc-space-6) 64px;
+  inset: 0 var(--space-6) 64px;
   display: grid;
   place-items: center;
   margin: 0;
-  font-size: var(--arc-text-sm);
-  color: var(--arc-text-muted);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
   text-align: center;
   text-wrap: balance;
   pointer-events: none;
-  transition: opacity var(--arc-duration-standard) var(--arc-ease-standard);
+  transition: opacity var(--duration-standard) var(--ease-standard);
 }
-.hint[data-hidden] { opacity: 0; transition-duration: var(--arc-duration-fast); }
+.hint[data-hidden] { opacity: 0; transition-duration: var(--duration-fast); }
 
 /* Snap confirmation floats above the paper. */
 .chip {
   position: absolute;
-  top: var(--arc-space-3);
+  top: var(--space-3);
   left: 50%;
   z-index: 2;
   display: flex;
   align-items: center;
-  gap: var(--arc-space-2);
-  max-width: calc(100% - var(--arc-space-6));
-  padding: 4px 4px 4px var(--arc-space-3);
-  border-radius: var(--arc-radius-pill);
+  gap: var(--space-2);
+  max-width: calc(100% - var(--space-6));
+  padding: 4px 4px 4px var(--space-3);
+  border-radius: var(--radius-pill);
   background: var(--ctd-glass);
-  box-shadow: 0 0 0 1px var(--arc-border), var(--arc-shadow-floating);
+  box-shadow: 0 0 0 1px var(--border), var(--shadow-floating);
   -webkit-backdrop-filter: blur(14px) saturate(1.4);
   backdrop-filter: blur(14px) saturate(1.4);
   translate: -50% 0;
-  font-size: var(--arc-text-sm);
+  font-size: var(--text-sm);
   white-space: nowrap;
 }
 .chipIcon { flex: none; color: var(--ctd-accent); }
@@ -134,40 +134,40 @@
 .chipButton {
   flex: none;
   min-height: 32px;
-  padding: 0 var(--arc-space-3);
+  padding: 0 var(--space-3);
   border: 0;
-  border-radius: var(--arc-radius-pill);
-  background: var(--arc-surface-muted);
-  color: var(--arc-foreground);
+  border-radius: var(--radius-pill);
+  background: var(--surface-muted);
+  color: var(--foreground);
   font: inherit;
-  font-size: var(--arc-text-sm);
+  font-size: var(--text-sm);
   cursor: pointer;
-  transition: background-color var(--arc-duration-fast) var(--arc-ease-standard), transform var(--arc-duration-spring) var(--arc-ease-spring);
+  transition: background-color var(--duration-fast) var(--ease-standard), transform var(--duration-spring) var(--ease-spring);
 }
-.chipButton:hover, .chipButton:focus-visible { background: color-mix(in oklab, var(--arc-foreground) 10%, var(--arc-surface-muted)); }
+.chipButton:hover, .chipButton:focus-visible { background: color-mix(in oklab, var(--foreground) 10%, var(--surface-muted)); }
 .chipButton:active { transform: scale(.97); }
 
 /* Floating glass toolbar. */
 .toolbar {
   position: absolute;
-  bottom: var(--arc-space-3);
+  bottom: var(--space-3);
   left: 50%;
   z-index: 2;
   display: flex;
   align-items: center;
   gap: 2px;
   padding: 4px;
-  border-radius: var(--arc-radius-pill);
+  border-radius: var(--radius-pill);
   background: var(--ctd-glass);
-  box-shadow: 0 0 0 1px var(--arc-border), var(--arc-shadow-floating);
+  box-shadow: 0 0 0 1px var(--border), var(--shadow-floating);
   -webkit-backdrop-filter: blur(14px) saturate(1.4);
   backdrop-filter: blur(14px) saturate(1.4);
   translate: -50% 0;
 }
-.group { display: flex; align-items: center; gap: 2px; transition: opacity var(--arc-duration-fast) var(--arc-ease-standard); }
+.group { display: flex; align-items: center; gap: 2px; transition: opacity var(--duration-fast) var(--ease-standard); }
 .group[data-dim] { opacity: .55; }
 .group[data-dim]:hover, .group[data-dim]:focus-within { opacity: 1; }
-.divider { width: 1px; height: 20px; margin: 0 4px; background: var(--arc-border); }
+.divider { width: 1px; height: 20px; margin: 0 4px; background: var(--border); }
 
 .tool, .swatch {
   position: relative;
@@ -177,13 +177,13 @@
   height: 40px;
   padding: 0;
   border: 0;
-  border-radius: var(--arc-radius-pill);
+  border-radius: var(--radius-pill);
   background: transparent;
-  color: var(--arc-text-secondary);
+  color: var(--text-secondary);
   cursor: pointer;
-  transition: color var(--arc-duration-fast) var(--arc-ease-standard), background-color var(--arc-duration-fast) var(--arc-ease-standard), transform var(--arc-duration-spring) var(--arc-ease-spring);
+  transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard), transform var(--duration-spring) var(--ease-spring);
 }
-.tool:hover, .tool:focus-visible, .swatch:hover, .swatch:focus-visible { background: color-mix(in oklab, var(--arc-foreground) 7%, transparent); color: var(--arc-foreground); }
+.tool:hover, .tool:focus-visible, .swatch:hover, .swatch:focus-visible { background: color-mix(in oklab, var(--foreground) 7%, transparent); color: var(--foreground); }
 .tool:active:not(:disabled), .swatch:active { transform: scale(.94); }
 .tool:disabled { opacity: .4; cursor: default; }
 .tool[aria-pressed="true"] { color: var(--ctd-accent); }
@@ -201,25 +201,25 @@
   height: 16px;
   border-radius: 50%;
   background: var(--swatch);
-  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--arc-foreground) 12%, transparent);
-  transition: transform var(--arc-duration-spring) var(--arc-ease-spring), box-shadow var(--arc-duration-fast) var(--arc-ease-standard);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--foreground) 12%, transparent);
+  transition: transform var(--duration-spring) var(--ease-spring), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .swatch[aria-pressed="true"] .swatchDot {
   transform: scale(1.12);
-  box-shadow: 0 0 0 2px var(--arc-surface-raised), 0 0 0 3.5px var(--swatch);
+  box-shadow: 0 0 0 2px var(--surface-raised), 0 0 0 3.5px var(--swatch);
 }
 
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 
-:global(:root[data-theme="night"]) .root {
-  --ctd-paper: color-mix(in oklab, var(--arc-surface-muted) 30%, var(--arc-background));
-  --ctd-glass: color-mix(in oklab, var(--arc-surface-raised) 72%, transparent);
+:global(:root[data-theme="dark"]) .root {
+  --ctd-paper: color-mix(in oklab, var(--surface-muted) 30%, var(--background));
+  --ctd-glass: color-mix(in oklab, var(--surface-raised) 72%, transparent);
 }
-:global(:root[data-theme="night"]) .stage { box-shadow: inset 0 1px 0 color-mix(in oklab, var(--arc-foreground) 4%, transparent); }
+:global(:root[data-theme="dark"]) .stage { box-shadow: inset 0 1px 0 color-mix(in oklab, var(--foreground) 4%, transparent); }
 
 @container (max-width: 560px) {
   .stage { aspect-ratio: 4 / 5; }
-  .header { padding-inline: var(--arc-space-3); }
+  .header { padding-inline: var(--space-3); }
   .tool, .swatch { width: 38px; height: 38px; }
   .divider { margin: 0 2px; }
 }

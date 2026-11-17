@@ -6,10 +6,9 @@ import { Badge } from "@/shared/arc/badge/badge";
 import { Card } from "@/shared/arc/card/card";
 import { Progress } from "@/shared/arc/progress/progress";
 import { SortableDataTable } from "@/shared/arc/sortable-data-table/sortable-data-table";
-import { Button } from "@/shared/ui/button";
-import { Separator } from "@/shared/ui/separator";
+import { Button } from "@/shared/arc/button/button";
 import { ArrowRight, Check } from "lucide-react";
-import { row, stack, useNotify } from "./demo-utils";
+import { row, useNotify } from "./demo-utils";
 
 export function BadgeDemo() {
   return (
@@ -35,7 +34,7 @@ export function CardDemo() {
       action={
         <Button
           size="sm"
-          variant="outline"
+          variant="secondary"
           onClick={() => notify("已打开示例项目")}
         >
           查看项目
@@ -91,27 +90,6 @@ export function TableDemo() {
           },
         ]}
       />
-    </div>
-  );
-}
-
-export function SeparatorDemo() {
-  return (
-    <div className={stack}>
-      <div>
-        <p className="text-sm font-medium">把相关内容放在一起</p>
-        <p className="mt-1 text-xs text-muted-foreground">
-          用分隔线建立轻量的内容边界。
-        </p>
-      </div>
-      <Separator />
-      <div className="flex h-4 items-center gap-4 text-sm">
-        <span>设计</span>
-        <Separator orientation="vertical" />
-        <span>开发</span>
-        <Separator orientation="vertical" />
-        <span>交付</span>
-      </div>
     </div>
   );
 }

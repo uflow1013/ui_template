@@ -1,4 +1,4 @@
-.root { --expandable-text-lines: 3; display: grid; justify-items: start; gap: var(--arc-space-2); min-width: 0; color: var(--arc-text-secondary); font-size: var(--arc-text-sm); line-height: var(--arc-leading-body); letter-spacing: var(--arc-tracking-body); }
+.root { --expandable-text-lines: 3; display: grid; justify-items: start; gap: var(--space-2); min-width: 0; color: var(--text-secondary); font-size: var(--text-sm); line-height: var(--leading-body); letter-spacing: var(--tracking-body); }
 /* Height is owned by motion while it moves; at rest the clamp is plain CSS, so it follows every width and font change for free. */
 .content { position: relative; width: 100%; min-width: 0; overflow: hidden; overflow-wrap: anywhere; }
 .content[data-clamped] { max-height: calc(var(--expandable-text-lines) * 1.4em); max-height: calc(var(--expandable-text-lines) * 1lh); }
@@ -7,13 +7,13 @@
 .inner > :first-child { margin-top: 0; }
 .inner > :last-child { margin-bottom: 0; }
 .inner p { margin: 0 0 .75em; }
-.toggle { display: inline-flex; align-items: center; gap: var(--arc-space-1); min-height: 28px; margin: 0 0 0 -2px; padding: 0 2px; border: 0; border-radius: 8px; background: transparent; color: var(--arc-foreground); font: inherit; font-weight: 500; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color var(--arc-duration-fast) var(--arc-ease-standard); }
-@media (hover: hover) and (pointer: fine) { .toggle:hover { color: var(--arc-text-secondary); } }
-.toggle:active { color: var(--arc-text-muted); }
+.toggle { display: inline-flex; align-items: center; gap: var(--space-1); min-height: 28px; margin: 0 0 0 -2px; padding: 0 2px; border: 0; border-radius: 8px; background: transparent; color: var(--foreground); font: inherit; font-weight: 500; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color var(--duration-fast) var(--ease-standard); }
+@media (hover: hover) and (pointer: fine) { .toggle:hover { color: var(--text-secondary); } }
+.toggle:active { color: var(--text-muted); }
 .labels { display: inline-grid; justify-items: start; }
 /* The labels crossfade with a short vertical drift and a brief blur, timed to the opening. */
-.label { grid-area: 1 / 1; opacity: 0; filter: blur(2px); transform: translateY(-4px); transition: opacity var(--arc-duration-standard) var(--arc-ease-standard), transform var(--arc-duration-considered) var(--arc-ease-standard), filter var(--arc-duration-standard) var(--arc-ease-standard); pointer-events: none; }
+.label { grid-area: 1 / 1; opacity: 0; filter: blur(2px); transform: translateY(-4px); transition: opacity var(--duration-standard) var(--ease-standard), transform var(--duration-considered) var(--ease-standard), filter var(--duration-standard) var(--ease-standard); pointer-events: none; }
 .label[data-active] { opacity: 1; filter: blur(0); transform: none; }
 .label + .label:not([data-active]) { transform: translateY(4px); }
-.icon { display: inline-flex; color: var(--arc-text-muted); }
+.icon { display: inline-flex; color: var(--text-muted); }
 @media (prefers-reduced-motion: reduce) { .toggle, .label { transition: none; } }

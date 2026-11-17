@@ -60,7 +60,7 @@ export interface PromptCacheResult {
   message?: string;
 }
 
-export const SERIES = ["var(--arc-series-3)", "var(--arc-series-2)", "var(--arc-series-4)", "var(--arc-series-1)"];
+export const SERIES = ["var(--series-3)", "var(--series-2)", "var(--series-4)", "var(--series-1)"];
 
 /** A support agent's prompt: tool definitions, policy, the help center articles it answers from, and the thread so far. */
 export const sampleSegments: PromptCacheSegment[] = [

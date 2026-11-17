@@ -125,6 +125,21 @@ export const tokens = {
     "previewMinHeight": "29rem"
   },
   "themes": {
+    "studio": {
+      "background": "#F7F7F4",
+      "foreground": "#232522",
+      "surface": "#FFFFFF",
+      "surface-secondary": "#F0F1ED",
+      "surface-tertiary": "#E7E9E3",
+      "muted": "#60655E",
+      "default": "#ECEEE8",
+      "accent": "#0562EF",
+      "accent-foreground": "#FFFFFF",
+      "border": "#E1E4DC",
+      "separator": "#C9CEC3",
+      "field-background": "#FFFFFF",
+      "field-border": "#C9CEC3"
+    },
     "clarity": {
       "background": "oklch(0.9702 0 0)",
       "foreground": "oklch(0.2103 0.0059 285.89)",

@@ -1,12 +1,12 @@
 /* The field fills its box. Give the root a height, or let its content size it. */
 .root {
-  --dot-grid-color: var(--arc-border-strong);
-  --dot-grid-active: var(--arc-accent);
+  --dot-grid-color: var(--border-strong);
+  --dot-grid-active: var(--accent);
   position: relative;
   min-height: 240px;
   overflow: hidden;
   overflow: clip;
-  color: var(--arc-foreground);
+  color: var(--foreground);
   isolation: isolate;
   -webkit-tap-highlight-color: transparent;
 }

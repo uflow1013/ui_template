@@ -1,25 +1,25 @@
 /* Colors are tokens, so the ghost follows the theme and the accent. Override any --ghost-* variable to restyle it. */
 .root {
-  --ghost-body: var(--arc-accent);
-  --ghost-eye: var(--arc-accent-foreground, var(--arc-background));
+  --ghost-body: var(--accent);
+  --ghost-eye: var(--accent-foreground, var(--background));
   --ghost-mark: var(--ghost-body);
   --ghost-shade: color-mix(in oklab, var(--ghost-body) 84%, black);
-  --ghost-ground: color-mix(in oklab, var(--arc-foreground) 10%, transparent);
+  --ghost-ground: color-mix(in oklab, var(--foreground) 10%, transparent);
   position: relative;
   display: inline-flex;
   flex: none;
   vertical-align: middle;
 }
 .root[data-tone="ink"] {
-  --ghost-body: var(--arc-foreground);
-  --ghost-eye: var(--arc-background);
-  --ghost-shade: color-mix(in oklab, var(--arc-foreground) 82%, var(--arc-background));
+  --ghost-body: var(--foreground);
+  --ghost-eye: var(--background);
+  --ghost-shade: color-mix(in oklab, var(--foreground) 82%, var(--background));
 }
 /* A pale sheet with a hairline: the classic ghost. Marks keep the accent. */
 .root[data-tone="sheet"] {
-  --ghost-body: var(--arc-surface-raised, var(--arc-surface));
-  --ghost-eye: var(--arc-foreground);
-  --ghost-mark: var(--arc-accent);
+  --ghost-body: var(--surface-raised, var(--surface));
+  --ghost-eye: var(--foreground);
+  --ghost-mark: var(--accent);
   --ghost-shade: color-mix(in oklab, var(--ghost-body) 93%, black);
 }
 .root[data-tone="custom"] { --ghost-eye: color-mix(in oklab, var(--ghost-body) 18%, black); }
@@ -28,7 +28,7 @@
 
 .body { fill: var(--ghost-body); }
 .shade { fill: var(--ghost-shade); }
-.outline { fill: none; stroke: color-mix(in oklab, var(--arc-foreground) 20%, transparent); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.outline { fill: none; stroke: color-mix(in oklab, var(--foreground) 20%, transparent); stroke-width: 1px; vector-effect: non-scaling-stroke; }
 .eye { fill: var(--ghost-eye); }
 .mark { fill: var(--ghost-mark); }
 .swirl { fill: none; stroke: var(--ghost-mark); stroke-linecap: round; stroke-linejoin: round; }

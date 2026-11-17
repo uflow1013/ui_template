@@ -33,7 +33,7 @@ export interface Collaborator {
   name: string;
   /** Portrait URL. Falls back to initials. */
   avatar?: string;
-  /** Cursor color. Defaults to var(--arc-series-2). */
+  /** Cursor color. Defaults to var(--series-2). */
   color?: string;
 }
 

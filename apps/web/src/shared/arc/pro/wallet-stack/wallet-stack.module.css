@@ -9,12 +9,12 @@
   width: min(100%, 18.5rem);
   gap: 10px;
   container-type: inline-size;
-  color: var(--arc-foreground);
-  font-family: var(--arc-font-body);
-  letter-spacing: var(--arc-tracking-body);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  letter-spacing: var(--tracking-body);
   -webkit-tap-highlight-color: transparent;
 }
-:global(:root[data-theme="night"]) .wallet {
+:global(:root[data-theme="dark"]) .wallet {
   --wallet-ambient: oklch(0% 0 0 / .7);
   --wallet-contact: oklch(0% 0 0 / .45);
   --wallet-glass: linear-gradient(135deg, oklch(72% .03 220 / .42), oklch(52% .04 235 / .34) 55%, oklch(64% .04 260 / .4));
@@ -22,7 +22,7 @@
   --wallet-glass-edge: oklch(100% 0 0 / .32);
 }
 @media (prefers-color-scheme: dark) {
-  :global(:root[data-theme="night"]) .wallet {
+  :global(:root[data-theme="dark"]) .wallet {
     --wallet-ambient: oklch(0% 0 0 / .7);
     --wallet-contact: oklch(0% 0 0 / .45);
     --wallet-glass: linear-gradient(135deg, oklch(72% .03 220 / .42), oklch(52% .04 235 / .34) 55%, oklch(64% .04 260 / .4));
@@ -32,12 +32,12 @@
 }
 
 .header { display: flex; min-height: 32px; align-items: center; justify-content: space-between; gap: 12px; }
-.title { margin: 0; font-size: var(--arc-text-base); font-weight: 500; line-height: var(--arc-leading-body); }
-.count { display: inline-flex; color: var(--arc-text-muted); font-size: var(--arc-text-sm); font-variant-numeric: tabular-nums; white-space: pre; }
+.title { margin: 0; font-size: var(--text-base); font-weight: 500; line-height: var(--leading-body); }
+.count { display: inline-flex; color: var(--text-muted); font-size: var(--text-sm); font-variant-numeric: tabular-nums; white-space: pre; }
 .countValue { display: inline-block; min-width: 1ch; text-align: right; }
-.headerButton { display: inline-flex; height: 32px; align-items: center; gap: 6px; padding: 0 12px 0 10px; border: 1px solid var(--arc-border); border-radius: var(--arc-radius-pill); background: var(--arc-surface); color: var(--arc-foreground); cursor: pointer; font: inherit; font-size: var(--arc-text-sm); font-weight: 500; letter-spacing: inherit; transition: background-color var(--arc-duration-fast) var(--arc-ease-standard), scale var(--arc-duration-fast) var(--arc-ease-standard); }
+.headerButton { display: inline-flex; height: 32px; align-items: center; gap: 6px; padding: 0 12px 0 10px; border: 1px solid var(--border); border-radius: var(--radius-pill); background: var(--surface); color: var(--foreground); cursor: pointer; font: inherit; font-size: var(--text-sm); font-weight: 500; letter-spacing: inherit; transition: background-color var(--duration-fast) var(--ease-standard), scale var(--duration-fast) var(--ease-standard); }
 .headerButton:active { scale: .97; }
-@media (hover: hover) and (pointer: fine) { .headerButton:hover { background: var(--arc-surface-muted); } }
+@media (hover: hover) and (pointer: fine) { .headerButton:hover { background: var(--surface-muted); } }
 
 /* Cards slide into a pocket at the bottom edge. The stage clips only vertically, and reaches 12px past the wallet so tilt and shadows are never cut at the top. A mask or clip-path would isolate the glass card's backdrop blur, so neither is used. */
 .stage {
@@ -96,16 +96,16 @@
 .sheen { z-index: 2; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 50% 50%, oklch(100% 0 0 / .42), oklch(100% 0 0 / .12) 18%, transparent 36%); mix-blend-mode: soft-light; pointer-events: none; will-change: transform, opacity; }
 
 /* Printed and embossed details */
-.issuer { z-index: 1; top: 6.8cqi; left: 7cqi; max-width: 58cqi; overflow: hidden; font-family: var(--arc-font-display); font-size: 5.4cqi; font-weight: 500; letter-spacing: -.02em; line-height: 1; text-overflow: ellipsis; white-space: nowrap; }
+.issuer { z-index: 1; top: 6.8cqi; left: 7cqi; max-width: 58cqi; overflow: hidden; font-family: var(--font-display); font-size: 5.4cqi; font-weight: 500; letter-spacing: -.02em; line-height: 1; text-overflow: ellipsis; white-space: nowrap; }
 .product { z-index: 1; top: 7.6cqi; right: 7cqi; max-width: 34cqi; overflow: hidden; color: var(--ink-soft); font-size: 3.3cqi; line-height: 1; text-overflow: ellipsis; white-space: nowrap; }
 .chip { z-index: 1; top: 21.5cqi; left: 8.5cqi; width: 13.6cqi; height: auto; filter: drop-shadow(0 .25cqi .3cqi oklch(0% 0 0 / .28)); }
 .contactless { z-index: 1; top: 23.4cqi; left: 25.5cqi; width: 6.6cqi; height: 6.6cqi; color: var(--ink-soft); }
-.number { z-index: 1; top: 37.6cqi; left: 7cqi; display: flex; align-items: center; gap: 2.2cqi; font-family: var(--arc-font-display); font-size: 5.6cqi; font-variant-numeric: tabular-nums; letter-spacing: .09em; line-height: 1; text-shadow: 0 .18cqi 0 var(--emboss-hi), 0 -.18cqi 0 var(--emboss-lo); white-space: nowrap; }
+.number { z-index: 1; top: 37.6cqi; left: 7cqi; display: flex; align-items: center; gap: 2.2cqi; font-family: var(--font-display); font-size: 5.6cqi; font-variant-numeric: tabular-nums; letter-spacing: .09em; line-height: 1; text-shadow: 0 .18cqi 0 var(--emboss-hi), 0 -.18cqi 0 var(--emboss-lo); white-space: nowrap; }
 .mask { font-size: 4.4cqi; letter-spacing: .02em; opacity: .82; word-spacing: 1.2cqi; }
 .holder { z-index: 1; bottom: 6.6cqi; left: 7cqi; max-width: 42cqi; overflow: hidden; font-size: 3.5cqi; letter-spacing: .02em; line-height: 1; text-overflow: ellipsis; text-shadow: 0 .14cqi 0 var(--emboss-hi), 0 -.14cqi 0 var(--emboss-lo); white-space: nowrap; }
 .expiry { z-index: 1; bottom: 6.6cqi; left: 52cqi; display: grid; gap: .8cqi; font-size: 3.5cqi; font-variant-numeric: tabular-nums; letter-spacing: .04em; line-height: 1; text-shadow: 0 .14cqi 0 var(--emboss-hi), 0 -.14cqi 0 var(--emboss-lo); }
 .expiryLabel { color: var(--ink-soft); font-size: 2.2cqi; letter-spacing: 0; text-shadow: none; }
-.network { z-index: 1; right: 6.4cqi; bottom: 5.6cqi; display: flex; align-items: center; gap: 1cqi; color: var(--ink); font-family: var(--arc-font-display); font-size: 4.2cqi; font-weight: 500; letter-spacing: -.03em; line-height: 1; }
+.network { z-index: 1; right: 6.4cqi; bottom: 5.6cqi; display: flex; align-items: center; gap: 1cqi; color: var(--ink); font-family: var(--font-display); font-size: 4.2cqi; font-weight: 500; letter-spacing: -.03em; line-height: 1; }
 .network svg { width: 6.2cqi; height: 6.2cqi; }
 
 /* Metal: the brushed silver of the account avatar, a slow conic sweep with a soft top-left sheen over fine horizontal grain. */
@@ -169,7 +169,7 @@
 .card[data-variant="color"] .sweep { background: linear-gradient(112deg, transparent 22%, oklch(100% 0 0 / .16) 38%, oklch(100% 0 0 / .03) 52%, transparent 64%), radial-gradient(70% 60% at 100% 110%, oklch(from var(--card-tint) calc(l + .16) c calc(h + 24) / .3), transparent 70%); }
 
 /* A press gives way a little before the card lifts or settles back. */
-.card { transition: scale var(--arc-duration-fast) var(--arc-ease-standard); }
+.card { transition: scale var(--duration-fast) var(--ease-standard); }
 .card:active { scale: .985; }
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -177,19 +177,19 @@
 .detail { position: absolute; z-index: 0; top: calc(12px + 100cqi * 53.98 / 85.6 * .88 + 14px); right: 12px; bottom: calc(30px + 6px); left: 12px; overflow-y: auto; scrollbar-width: none; will-change: opacity, transform; }
 .detail[inert] { pointer-events: none; }
 .detailBody { display: grid; gap: 4px; }
-.balance { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 0 2px 8px; border-bottom: 1px solid var(--arc-border); }
-.balanceLabel { color: var(--arc-text-secondary); font-size: var(--arc-text-sm); }
-.money { font-family: var(--arc-font-display); font-size: var(--arc-text-xl); font-variant-numeric: tabular-nums; letter-spacing: var(--arc-tracking-display); line-height: var(--arc-leading-display); }
+.balance { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 0 2px 8px; border-bottom: 1px solid var(--border); }
+.balanceLabel { color: var(--text-secondary); font-size: var(--text-sm); }
+.money { font-family: var(--font-display); font-size: var(--text-xl); font-variant-numeric: tabular-nums; letter-spacing: var(--tracking-display); line-height: var(--leading-display); }
 .activity { display: grid; margin: 0; padding: 0; list-style: none; }
 .transaction { display: grid; align-items: center; gap: 10px; padding: 4px 2px; grid-template-columns: 32px minmax(0, 1fr) auto; }
-.txIcon { display: grid; width: 32px; height: 32px; place-items: center; overflow: hidden; border-radius: 50%; background: var(--arc-surface-muted); color: var(--arc-text-secondary); }
+.txIcon { display: grid; width: 32px; height: 32px; place-items: center; overflow: hidden; border-radius: 50%; background: var(--surface-muted); color: var(--text-secondary); }
 .txIcon img { width: 100%; height: 100%; object-fit: cover; }
 .txText { display: grid; min-width: 0; }
 .txMerchant, .txDetail { overflow: hidden; line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
-.txMerchant { font-size: var(--arc-text-sm); }
-.txDetail { color: var(--arc-text-muted); font-size: var(--arc-text-xs); }
-.txAmount { font-size: var(--arc-text-sm); font-variant-numeric: tabular-nums; }
-.txAmount[data-positive] { color: var(--arc-success); }
+.txMerchant { font-size: var(--text-sm); }
+.txDetail { color: var(--text-muted); font-size: var(--text-xs); }
+.txAmount { font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
+.txAmount[data-positive] { color: var(--success); }
 
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 

@@ -3,7 +3,7 @@ import source from "../tokens.json" with { type: "json" };
 export const THEME_STORAGE_KEY = "chengxu.theme.v1";
 export const DEFAULT_THEME = "studio";
 export const themes = [
-  { id: "studio", name: "专注工作", subtitle: "安静有序，适合日常工作台", mode: "light", reference: "Radix Colors", url: "https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale" },
+  { id: "studio", name: "专注工作", subtitle: "暖灰画布 · 蓝色强调", mode: "light", reference: "Arc UI", url: "https://uiarc.dev/" },
   { id: "clarity", name: "清晰交互", subtitle: "明确直接，适合通用产品", mode: "light", reference: "HeroUI", url: "https://heroui.com/en/docs/native/getting-started/colors" },
   { id: "reading", name: "温润阅读", subtitle: "柔和舒展，适合内容与阅读", mode: "light", reference: "Material Design 3", url: "https://m3.material.io/styles/color/roles" },
   { id: "night", name: "夜间工作", subtitle: "重新校准层级的独立深色主题", mode: "dark", reference: "HeroUI · Dark", url: "https://heroui.com/en/docs/native/getting-started/theming" },
@@ -129,15 +129,11 @@ export const allTokens = tokenGroups.flatMap((group) => group.tokens);
 const tokenKeys = new Set(allTokens.map((entry) => entry.key));
 const c = source.color;
 const studio: Record<string, string> = {
-  background: c.canvas, foreground: c.ink, surface: c.surface,
-  "surface-secondary": c.surfaceSubtle, "surface-tertiary": c.surfaceMuted,
-  muted: c.muted, default: c.surfaceMuted, accent: c.accent,
-  "accent-foreground": c.surface,
+  ...source.themes.studio,
   success: c.success, "success-foreground": c.surface,
   warning: c.warning, "warning-foreground": c.surface,
   danger: c.danger, "danger-foreground": c.surface,
-  border: c.line, separator: c.lineStrong,
-  "field-background": c.surface, "field-border": c.lineStrong, segment: c.surface,
+  segment: source.themes.studio.surface,
 };
 export function isThemeId(value: unknown): value is ThemeId {
   return themes.some((theme) => theme.id === value);
@@ -172,12 +168,26 @@ export function getThemeConcepts(id: ThemeId, colorIdentity: (value: string) => 
   return [...concepts.values()];
 }
 
-// Bridge the semantic palette to both shadcn slots and the original showcase tokens.
-const aliases: Record<string, string> = {
-  background: "background", foreground: "foreground", card: "surface", "card-foreground": "surface-foreground",
+// Arc UI consumes these roles in CSS Modules. The same mapping is used for the
+// root document, scoped swatches and exported themes.
+const arcAliases: Record<string, string> = {
+  background: "background", foreground: "foreground", surface: "surface", "surface-raised": "overlay",
+  "surface-muted": "surface-secondary", "text-secondary": "muted", "text-muted": "muted",
+  border: "border", "border-subtle": "separator-secondary", "border-strong": "border-secondary",
+  accent: "accent", "accent-strong": "accent-hover", "accent-subtle": "accent-soft", "accent-foreground": "accent-foreground",
+  success: "success", warning: "warning", danger: "danger", info: "link",
+  "control-on": "control-selected", "control-on-subtle": "accent-soft", "control-glyph": "control-foreground",
+  "control-track": "control", "control-track-hover": "default-hover",
+  "control-thumb-on": "control-foreground", "control-fill": "control-selected",
+  "series-1": "chart-1", "series-2": "chart-2", "series-3": "chart-3", "series-4": "chart-4",
+};
+
+// Preserve named aliases used by the template and existing theme exports.
+const templateAliases: Record<string, string> = {
+  card: "surface", "card-foreground": "surface-foreground",
   popover: "overlay", "popover-foreground": "overlay-foreground", primary: "button-primary", "primary-foreground": "button-primary-foreground",
   secondary: "button-secondary", "secondary-foreground": "button-secondary-foreground", muted: "surface-secondary", "muted-foreground": "muted",
-  accent: "accent-soft", "accent-foreground": "accent-soft-foreground", destructive: "danger", border: "border", input: "field-border", ring: "focus",
+  destructive: "danger", input: "field-border", ring: "focus",
   sidebar: "sidebar", "sidebar-foreground": "sidebar-foreground", "sidebar-primary": "accent", "sidebar-primary-foreground": "accent-foreground",
   "sidebar-accent": "sidebar-selected", "sidebar-accent-foreground": "sidebar-selected-foreground", "sidebar-border": "sidebar-border", "sidebar-ring": "focus",
   "ds-color-canvas": "background", "ds-color-surface": "surface", "ds-color-surface-subtle": "surface-secondary", "ds-color-surface-muted": "surface-tertiary",
@@ -192,11 +202,14 @@ export function themeStyle(id: ThemeId, overrides: Record<string, string> = {}):
   const values = resolveTheme(id, overrides);
   const style: Record<string, string> = {
     colorScheme: id === "night" ? "dark" : "light",
+    "--focus-outline": `color-mix(in oklab, ${ref("focus")} 72%, transparent)`,
     "--shadow-soft": source.shadow.soft,
     "--shadow-float": source.shadow.float,
   };
   for (const [key, value] of Object.entries(values)) style[`--theme-${key}`] = value;
-  for (const [key, value] of Object.entries(aliases)) style[`--${key}`] = ref(value);
+  for (const aliases of [arcAliases, templateAliases]) {
+    for (const [key, value] of Object.entries(aliases)) style[`--${key}`] = ref(value);
+  }
   if (id === "night") {
     style["--shadow-soft"] = "none";
     style["--shadow-float"] = "0 0 0 1px rgb(255 255 255 / 15%)";
@@ -226,5 +239,5 @@ export function parseSavedTheme(raw: string | null): SavedTheme | null {
 export function themeBootScript() {
   const defaults = JSON.stringify(Object.fromEntries(themes.map((theme) => [theme.id, themeStyle(theme.id)])));
   const validKeys = JSON.stringify(allTokens.map((entry) => entry.key));
-  return `(()=>{try{const s=JSON.parse(localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)}));const p=${defaults};if(s?.version!==1||!Object.hasOwn(p,s.activeId))return;const root=document.documentElement;for(const [k,v]of Object.entries(p[s.activeId])){if(k==='colorScheme')root.style.colorScheme=v;else root.style.setProperty(k,v)}const allowed=new Set(${validKeys});for(const[k,v]of Object.entries(s.overrides?.[s.activeId]??{})){if(allowed.has(k)&&typeof v==='string'&&v.length<=200&&!/var\\(|url\\(|env\\(/i.test(v)&&CSS.supports('color',v))root.style.setProperty('--theme-'+k,v)}root.classList.toggle('dark',s.activeId==='night');root.dataset.theme=s.activeId}catch{}})();`;
+  return `(()=>{try{const s=JSON.parse(localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)}));const p=${defaults};if(s?.version!==1||!Object.hasOwn(p,s.activeId))return;const root=document.documentElement;for(const [k,v]of Object.entries(p[s.activeId])){if(k==='colorScheme')root.style.colorScheme=v;else root.style.setProperty(k,v)}const allowed=new Set(${validKeys});for(const[k,v]of Object.entries(s.overrides?.[s.activeId]??{})){if(allowed.has(k)&&typeof v==='string'&&v.length<=200&&!/var\\(|url\\(|env\\(/i.test(v)&&CSS.supports('color',v))root.style.setProperty('--theme-'+k,v)}root.classList.toggle('dark',s.activeId==='night');root.dataset.theme=p[s.activeId].colorScheme;root.dataset.themeId=s.activeId}catch{}})();`;
 }

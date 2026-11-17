@@ -38,7 +38,7 @@ export interface AiSparkProps {
 
 const DEFAULT_LABELS: Record<AiSparkStatus, string> = { idle: "Ready", thinking: "Thinking", generating: "Writing", done: "Done", error: "Couldn't finish" };
 const SPOKEN: Record<AiSparkStatus, string> = { idle: "AI ready", thinking: "AI is thinking", generating: "AI is writing", done: "AI finished", error: "AI couldn't finish" };
-const TONES: Record<AiSparkTone, string> = { accent: "var(--arc-accent)", foreground: "var(--arc-foreground)", muted: "var(--arc-text-muted)", inherit: "currentColor" };
+const TONES: Record<AiSparkTone, string> = { accent: "var(--accent)", foreground: "var(--foreground)", muted: "var(--text-muted)", inherit: "currentColor" };
 const AUTOPLAY: [AiSparkStatus, number][] = [["idle", 1600], ["thinking", 2800], ["generating", 3600], ["done", 2000]];
 
 /* ---------- The mark ----------

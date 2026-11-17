@@ -47,7 +47,7 @@ function toRGB(color: string, fallback: RGB): RGB {
 }
 /** The ink the dots are drawn in: the theme foreground, read from the element so light and dark both work. */
 function inkOf(node: Element): RGB {
-  return toRGB(getComputedStyle(node).getPropertyValue("--arc-foreground").trim(), [23, 23, 23]);
+  return toRGB(getComputedStyle(node).getPropertyValue("--foreground").trim(), [23, 23, 23]);
 }
 
 const grids = new Map<string, Promise<Uint8ClampedArray | null>>();
