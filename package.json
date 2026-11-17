@@ -5,7 +5,7 @@
   "scripts": {
     "tokens:build": "node packages/design-tokens/scripts/build.mjs",
     "tokens:check": "node packages/design-tokens/scripts/build.mjs --check",
-    "dev": "pnpm tokens:build && pnpm --filter @template/web dev",
+    "dev": "pnpm tokens:build && pnpm --filter @template/web dev --port 3222",
     "dev:mobile": "pnpm tokens:build && pnpm --filter @template/mobile dev",
     "dev:mobile:client": "pnpm tokens:build && pnpm --filter @template/mobile dev:client",
     "mobile:ios": "pnpm tokens:build && pnpm --filter @template/mobile ios",
