@@ -1,0 +1,160 @@
+.dock {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  inline-size: 19rem;
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: hidden;
+  border-inline-start: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.dock[data-mode="result"] {
+  inline-size: min(42vw, 42rem);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-block-size: 3.25rem;
+  padding-inline: var(--space-4);
+  border-block-end: 1px solid var(--border);
+}
+
+.header h2 {
+  margin: 0;
+  font: 500 var(--text-sm) / var(--leading-body) var(--font-body);
+}
+
+.header .close {
+  min-inline-size: var(--control-height-sm);
+  padding-inline: 0;
+}
+
+.scroll {
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+.drawer[data-side="right"] {
+  --drawer-size: min(38rem, calc(100dvw - var(--space-3)));
+}
+
+.directory {
+  display: grid;
+  gap: var(--space-5);
+  min-inline-size: 0;
+  padding: var(--space-4);
+}
+
+.drawer .directory {
+  padding: 0;
+}
+
+.search,
+.commandGroup {
+  min-inline-size: 0;
+}
+
+.commandGroup h3 {
+  margin: 0 0 var(--space-2);
+  color: var(--text-secondary);
+  font: 500 var(--text-xs) / var(--leading-body) var(--font-body);
+}
+
+.commandGroup ul {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.commandGroup li {
+  min-inline-size: 0;
+}
+
+.commandGroup .command {
+  inline-size: 100%;
+  min-block-size: var(--control-height-md);
+  justify-content: start;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-2);
+  text-align: start;
+}
+
+.commandCopy {
+  display: grid;
+  flex: 1;
+  min-inline-size: 0;
+  gap: 0.125rem;
+  color: var(--foreground);
+  line-height: 1.25;
+  white-space: normal;
+}
+
+.commandCopy code {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+
+.commandIcon {
+  color: var(--text-secondary);
+}
+
+.empty {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.result {
+  display: grid;
+  gap: var(--space-4);
+  min-inline-size: 0;
+  padding: var(--space-4);
+}
+
+.drawer .result {
+  padding: 0;
+}
+
+.resultHeading {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+}
+
+.resultHeading .back {
+  margin-inline-start: calc(-1 * var(--space-2));
+  padding-inline: var(--space-2);
+}
+
+.resultHeading h3 {
+  margin: 0;
+  font: 500 var(--text-lg) / var(--leading-body) var(--font-body);
+  overflow-wrap: anywhere;
+}
+
+.resultHeading p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  overflow-wrap: anywhere;
+}
+
+.artifact {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
+}

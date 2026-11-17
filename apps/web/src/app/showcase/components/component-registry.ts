@@ -1,5 +1,5 @@
 import { arcCatalog } from "./arc-catalog";
-import { arcDemoLoaders } from "./arc-demos/loaders";
+import { arcDemoLoaders, arcProDemoLoaders } from "./arc-demos/loaders";
 import { arcProCatalog } from "./arc-pro-catalog";
 import type { ComponentExample, DemoSize } from "./example-types";
 import { demoOverrides } from "./demo-overrides";
@@ -76,6 +76,12 @@ const demoSizes: Readonly<Partial<Record<string, DemoSize>>> = {
 };
 
 const sizeOrder = { compact: 0, wide: 1, full: 2 } as const;
+const fullProDemos = new Set([
+  "agent-cursor", "agent-plan", "agent-timeline", "ai-workflow", "ask-your-data",
+  "connector-setup", "data-grid", "lightbox-gallery", "model-training", "page-curl",
+  "photo-grid", "sankey-flow", "smart-form-fill", "starter-prompts", "ticket-router",
+  "training-run", "vector-search",
+]);
 const blockDocs = new Set([
   "command-palette",
   "file-upload",
@@ -115,9 +121,10 @@ export const componentExamples: ComponentExample[] = [
     name,
     description,
     tier: "pro",
+    size: fullProDemos.has(slug) ? "full" : group === "data" || group === "forms" ? "wide" : "compact",
     docs: docsFor(slug),
     importStatement: `import { ${exportName} } from "@/shared/arc/pro/${slug}/${slug}";`,
-    loadDemo: arcDemoLoaders[slug],
+    loadDemo: arcProDemoLoaders[slug],
   })),
 ].sort((first, second) =>
   Number(Boolean(second.loadDemo)) - Number(Boolean(first.loadDemo)) ||

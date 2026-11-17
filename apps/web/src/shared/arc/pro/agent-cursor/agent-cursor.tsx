@@ -1,5 +1,7 @@
 "use client";
 
+import { mediaUrl } from "../lib/media";
+
 import { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import { AnimatePresence, animate, motion, useMotionValue, useReducedMotion } from "motion/react";
@@ -68,7 +70,7 @@ interface CursorState { x: MotionValue<number>; y: MotionValue<number>; stop?: (
 
 const CLAUDE_CLAY = "#D97757";
 const defaultAgent: AgentIdentity = { name: "Claude", color: CLAUDE_CLAY };
-const defaultCollaborator: Collaborator = { name: "Emma Collins", avatar: "/media/people/emma-collins.svg" };
+const defaultCollaborator: Collaborator = { name: "Emma Collins", avatar: mediaUrl("/media/people/emma-collins.svg") };
 const glideEase: [number, number, number, number] = [0.4, 0, 0.2, 1];
 const dragEase: [number, number, number, number] = [0.35, 0, 0.6, 1];
 const enterEase = [...motionTokens.ease.standard] as [number, number, number, number];

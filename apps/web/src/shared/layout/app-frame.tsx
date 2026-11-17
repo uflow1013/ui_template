@@ -3,6 +3,7 @@
 import { Button } from "@/shared/arc/button/button";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/shared/arc/drawer/drawer";
 import { useIsMobile } from "@/shared/hooks/use-mobile";
+import { LOGIN_PATH } from "@/shared/auth/paths";
 import { tokens } from "@template/design-tokens";
 import { Menu, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -12,6 +13,9 @@ import { SiteHeader } from "./site-header";
 
 export function AppFrame({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const route = pathname.replace(/\/$/, "");
+  const standalone = route === LOGIN_PATH.slice(0, -1) ||
+    route === "/ai-studio" || pathname.startsWith("/orchestratelq");
   const isMobile = useIsMobile();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -24,7 +28,7 @@ export function AppFrame({ children }: { children: ReactNode }) {
   }, [collapsed]);
 
   useEffect(() => {
-    if (pathname.startsWith("/orchestratelq")) return;
+    if (standalone) return;
 
     function handleShortcut(event: KeyboardEvent) {
       if (event.key.toLowerCase() !== "b" || !(event.metaKey || event.ctrlKey) || event.altKey || event.shiftKey || event.repeat) return;
@@ -36,13 +40,13 @@ export function AppFrame({ children }: { children: ReactNode }) {
 
     window.addEventListener("keydown", handleShortcut);
     return () => window.removeEventListener("keydown", handleShortcut);
-  }, [isMobile, pathname, toggleDesktop]);
+  }, [isMobile, standalone, toggleDesktop]);
 
   useEffect(() => {
     if (!window.location.hash) pageScroll.current?.scrollTo({ top: 0 });
   }, [pathname]);
 
-  if (pathname.startsWith("/orchestratelq")) {
+  if (standalone) {
     return <div className="h-dvh overflow-y-auto bg-background">{children}</div>;
   }
 

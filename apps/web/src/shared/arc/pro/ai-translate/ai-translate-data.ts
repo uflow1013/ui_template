@@ -1,3 +1,4 @@
+import { mediaUrl } from "../lib/media";
 /** Languages the picker offers and the sample message with its translations. */
 
 export type AiTranslateLanguageCode = "en" | "de" | "fr" | "es" | "ja" | "pt";
@@ -23,7 +24,7 @@ export const languageByCode = (code: AiTranslateLanguageCode) => aiTranslateLang
 
 /** A release note from a mobile lead in Lyon, written in French, with one aligned translation per language. */
 export const aiTranslateSample = {
-  author: { name: "Chloé Nguyen", role: "Mobile lead, Lyon", avatar: "/media/people/chloe-nguyen.svg" },
+  author: { name: "Chloé Nguyen", role: "Mobile lead, Lyon", avatar: mediaUrl("/media/people/chloe-nguyen.svg") },
   timestamp: "Oct 27, 09:14",
   sourceLanguage: "fr" as AiTranslateLanguageCode,
   text: "Bonjour à toute l'équipe ! La version 4.2 de l'app iOS est partie en revue chez Apple hier soir, avec le nouveau mode hors ligne. Les premiers retours de la bêta sont très bons : la synchronisation passe de 9 à 3 secondes en moyenne. Pouvez-vous vérifier les traductions des écrans de paiement avant jeudi ? Merci d'avance, et bravo pour ce sprint.",

@@ -12,6 +12,8 @@ import { GeistSans } from "geist/font/sans";
 import "@/shared/arc/foundation.css";
 import "./tailwind.css";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "澄序 · 设计主题样板",
   description: "一套清晰、克制而有温度的界面主题规则。",

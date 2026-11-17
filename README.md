@@ -9,9 +9,11 @@ pnpm install
 pnpm dev
 ```
 
-Web 开发服务默认运行在 `http://localhost:3399`。`pnpm dev` 会先从 token 源文件生成 TypeScript token 和主题变量，再启动 Next.js。
+从仓库根目录运行 `pnpm dev` 后，访问终端显示的 Web 地址。命令先生成 TypeScript token 和主题变量，再启动 Next.js。
 
-推送到 `main` 分支后，GitHub Actions 会自动构建 `apps/web` 的静态导出并部署到 GitHub Pages。仓库设置中的 Pages 来源请选择 **GitHub Actions**；项目站点路径由 `actions/configure-pages` 自动传给 Next.js。
+Web 首次启动时，如果没有配置 `CHENGXU_PASSWORD`，会自动生成密码并写入忽略提交的 `apps/web/.env.local`。用该密码在 `/login` 登录。自行配置时可用任意字符，长度为 2 至 32 个 Unicode 字符。修改密码后重启服务。启动脚本也会在缺少 `CHENGXU_SESSION_SECRET` 时生成会话签名密钥。
+
+生产环境在 Node.js 服务器上运行 `pnpm build` 和 `pnpm --filter @template/web start`，并使用 HTTPS 和同一组服务端环境变量。GitHub Actions 检查代码和构建。登录依赖服务端验证，因此既有 GitHub Pages 静态站不再由本仓库工作流更新。
 
 移动端扫码预览：`pnpm dev:mobile`（Expo Go，需匹配 SDK 57，手机和电脑同一 Wi-Fi）。自定义开发客户端使用 `pnpm dev:mobile:client`；本地构建并启动 iOS / Android：`pnpm mobile:ios` / `pnpm mobile:android`，需要 Xcode 或 Android SDK。浏览器辅助预览：`pnpm mobile:web`（`http://localhost:8081`）。兼容版本、目录与构建说明见 [移动端文档](apps/mobile/README.md)。
 
@@ -51,11 +53,13 @@ packages/
 
 | 路径          | 内容                                         |
 | ------------- | -------------------------------------------- |
+| `/login`      | 密码登录                                     |
 | `/`           | 主题概览与工作台样例                         |
 | `/colors`     | 三套浅色、一套深色主题与可编辑的功能颜色矩阵 |
 | `/typography` | 字体分类与完整参数                           |
 | `/spacing`    | 间距、圆角与形状                             |
 | `/showcase`   | Arc UI 基础与 Pro 组件，按 6 类预览             |
+| `/ai-studio`  | 用快捷指令在对话中体验 Arc AI 组件            |
 | `/styles`     | 界面风格示例与设备比例切换                       |
 | `/patterns`   | 页面模块模式与分类筛选                           |
 | `/motion`     | 动效参考                                         |
@@ -118,6 +122,8 @@ Web 默认使用浅暖灰画布、近黑正文和 Arc 蓝色强调。留白与�
 ## 组件预览库
 
 `/showcase` 按六类浏览 Arc UI 基础与 Pro 组件。可操作的本地演示在滚动到附近时自动加载，展开分类后可跳到具体示例。页面支持中英文搜索、分类筛选、四套主题切换、复制导入语句和跳转官方文档。
+
+`/ai-studio` 将 AI 组件放进同一对话。可从快捷指令开始，也可以打开「所有指令」搜索功能，或直接在输入框发送 `/research-run`、`/agent-plan` 等指令。回复里的工具可以继续展开和操作，示例数据与反馈在浏览器本地处理。
 
 - Arc UI 基础组件最初取自[固定的上游提交](https://github.com/kuratlielia/arc-library/tree/8302b52ed9dc79ae7ca699b158a98dfdf09656f7)，MIT 声明随 `apps/web/src/shared/arc/` 保存。基础与 Pro 组件分别存放在 `arc/` 和 `arc/pro/`，构建直接使用本地源码。
 - 在 `apps/web` 目录运行 `pnpm exec shadcn add @uiarc/<组件>` 安装新组件。Pro registry 使用 `ARC_PRO_TOKEN`。升级已有组件时检查同路径的主题角色绑定与可访问性调整。[Arc 安装说明](https://uiarc.dev/docs/installation)

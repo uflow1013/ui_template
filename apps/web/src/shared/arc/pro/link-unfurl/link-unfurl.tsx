@@ -1,5 +1,7 @@
 "use client";
 
+import { mediaUrl } from "../lib/media";
+
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import type { ClipboardEvent, CSSProperties, FormEvent, KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent } from "react";
@@ -90,7 +92,7 @@ export const linkUnfurlSamples: LinkUnfurlPreview[] = [
     site: "Airbnb",
     title: "Rooftop loft in Alfama with river views",
     description: "Entire loft for 8 guests. 4 bedrooms, a shared terrace, and a 6 minute walk to the tram.",
-    image: "/media/photos/lisbon-rooftops.jpg",
+    image: mediaUrl("/media/photos/lisbon-rooftops.jpg"),
     imageAlt: "Terracotta rooftops of Lisbon stepping down to the river",
     favicon: "/block-logos/airbnb-color.svg",
   },
@@ -99,7 +101,7 @@ export const linkUnfurlSamples: LinkUnfurlPreview[] = [
     site: "Figma",
     title: "Offsite itinerary, day by day",
     description: "Design file with 14 frames. Edited by Sofia Ramirez 2 hours ago.",
-    image: "/media/photos/lisbon-tram.jpg",
+    image: mediaUrl("/media/photos/lisbon-tram.jpg"),
     imageAlt: "A yellow tram climbing a narrow Lisbon street",
     favicon: "/block-logos/figma-color.svg",
   },
@@ -108,7 +110,7 @@ export const linkUnfurlSamples: LinkUnfurlPreview[] = [
     site: "Spotify",
     title: "Lisbon evenings",
     description: "Playlist by Daniel Kim. 42 songs, 2 hr 51 min.",
-    image: "/media/photos/sea-at-dusk.jpg",
+    image: mediaUrl("/media/photos/sea-at-dusk.jpg"),
     imageAlt: "The sea at dusk under a soft pink sky",
     favicon: "/block-logos/spotify-color.svg",
     duration: "2:51:06",

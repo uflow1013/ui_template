@@ -5,6 +5,7 @@ import {
   Component,
   LayoutDashboard,
   LayoutGrid,
+  MessageSquareText,
   Palette,
   PanelsTopLeft,
   Rows3,
@@ -30,6 +31,7 @@ export const navigationGroups = [
     title: "设计示例",
     items: [
       { title: "组件预览", url: "/showcase", icon: Component },
+      { title: "AI 展示台", url: "/ai-studio", icon: MessageSquareText },
       { title: "动效预览", url: "/motion", icon: Sparkles },
       { title: "风格预览", url: "/styles", icon: PanelsTopLeft },
       { title: "UI 模式", url: "/patterns", icon: Rows3 },

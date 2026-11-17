@@ -9,7 +9,7 @@ import type { ComponentExample as Example } from "./example-types";
 function useShowcaseState() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
-  const [preview, setPreview] = useState("all");
+  const [tier, setTier] = useState("all");
   const { activeId, selectTheme } = useThemeEditor();
   const normalizedQuery = query.trim().toLocaleLowerCase();
   const matchesQuery = (example: Example) =>
@@ -19,7 +19,7 @@ function useShowcaseState() {
   const visible = componentExamples.filter(
     (example) =>
       (category === "all" || example.group === category) &&
-      (preview === "all" || Boolean(example.loadDemo) === (preview === "interactive")) &&
+      (tier === "all" || (example.tier ?? "base") === tier) &&
       matchesQuery(example),
   );
   const groups = componentGroups
@@ -31,15 +31,15 @@ function useShowcaseState() {
   const reset = () => {
     setQuery("");
     setCategory("all");
-    setPreview("all");
+    setTier("all");
   };
   return {
     query,
     setQuery,
     category,
     setCategory,
-    preview,
-    setPreview,
+    tier,
+    setTier,
     activeId,
     selectTheme,
     visible,

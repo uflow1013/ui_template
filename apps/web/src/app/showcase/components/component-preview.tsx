@@ -4,7 +4,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/shared/arc/popover/po
 import { Skeleton } from "@/shared/arc/skeleton/skeleton";
 import { Button } from "@/shared/arc/button/button";
 import { ArrowUpRight, BookOpen, Check, CodeXml, Copy, Ellipsis } from "lucide-react";
-import { useEffect, useId, useRef, useState, type ComponentType } from "react";
+import { Component, useEffect, useId, useRef, useState, type ComponentType, type ReactNode } from "react";
 import type { ComponentExample, DemoLoader } from "./example-types";
 
 const observers = new WeakMap<Element | Document, IntersectionObserver>();
@@ -40,10 +40,35 @@ function loadNearViewport(target: Element, load: () => void) {
   };
 }
 
+function PreviewError({ onRetry }: { onRetry: () => void }) {
+  return (
+    <div className="flex flex-wrap items-center gap-2 text-sm text-[var(--ds-color-muted)]">
+      <p role="alert">预览加载失败。</p>
+      <Button size="sm" variant="ghost" onClick={onRetry}>重试</Button>
+    </div>
+  );
+}
+
+class DemoErrorBoundary extends Component<{ children: ReactNode; onRetry: () => void }, { failed: boolean }> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  render() {
+    return this.state.failed ? <PreviewError onRetry={this.props.onRetry} /> : this.props.children;
+  }
+}
+
 function LiveDemo({ load }: { load: DemoLoader }) {
   const targetRef = useRef<HTMLDivElement>(null);
   const [Demo, setDemo] = useState<ComponentType | "failed">();
   const [attempt, setAttempt] = useState(0);
+  const retry = () => {
+    setDemo(undefined);
+    setAttempt((current) => current + 1);
+  };
 
   useEffect(() => {
     const target = targetRef.current;
@@ -70,21 +95,11 @@ function LiveDemo({ load }: { load: DemoLoader }) {
       data-live-demo={Demo && Demo !== "failed" ? "ready" : Demo ?? "pending"}
     >
       {Demo === "failed" ? (
-        <div className="flex flex-wrap items-center gap-2 text-sm text-[var(--ds-color-muted)]">
-          <p role="alert">预览加载失败。</p>
-          <Button
-            size="sm"
-            variant="ghost"
-            onClick={() => {
-              setDemo(undefined);
-              setAttempt((current) => current + 1);
-            }}
-          >
-            重试
-          </Button>
-        </div>
+        <PreviewError onRetry={retry} />
       ) : Demo ? (
-        <Demo />
+        <DemoErrorBoundary key={attempt} onRetry={retry}>
+          <Demo />
+        </DemoErrorBoundary>
       ) : (
         <Skeleton className="w-full max-w-48" label="正在加载预览" lines={2} />
       )}
@@ -193,10 +208,7 @@ export function ComponentPreview({ example }: { example: ComponentExample }) {
       {example.loadDemo ? (
         <LiveDemo load={example.loadDemo} />
       ) : (
-        <div className="grid min-w-0 content-start gap-2 text-sm">
-          <p className="text-[var(--text-secondary)]">{example.description}</p>
-          <p className="text-xs text-muted-foreground">暂无交互示例</p>
-        </div>
+        <p className="text-sm text-[var(--text-secondary)]">{example.description}</p>
       )}
     </article>
   );

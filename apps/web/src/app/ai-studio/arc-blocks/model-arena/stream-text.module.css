@@ -1,0 +1,50 @@
+/* Shared by the AI blocks' streaming text. Type size and line height come from the parent. */
+.stage { display: grid; min-width: 0; min-height: 1lh; }
+.stage > * { grid-area: 1 / 1; min-width: 0; }
+.placeholder { align-self: start; font-size: .875em; line-height: inherit; }
+.shimmer { background: linear-gradient(90deg, var(--text-muted) 0%, var(--text-muted) 38%, var(--foreground) 50%, var(--text-muted) 62%, var(--text-muted) 100%) 0 0 / 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shimmer 2.2s linear infinite; }
+@keyframes shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
+.statusStatic { color: var(--text-muted); }
+
+/* A chunk is one commit of whole words. It fades in once: opacity only, no blur, no rise, no per letter motion. */
+.enter { animation: develop .16s cubic-bezier(0, 0, .2, 1) backwards; }
+@keyframes develop { from { opacity: 0; } }
+
+.markdown { display: grid; gap: .85em; min-width: 0; overflow-wrap: break-word; }
+.plain { display: grid; gap: .6em; min-width: 0; overflow-wrap: break-word; }
+.markdown > *, .plain > * { min-width: 0; }
+.paragraph, .heading { margin: 0; }
+.heading { margin-top: .45em; font-size: 1em; font-weight: 500; }
+.strong { font-weight: 500; }
+.list { display: grid; gap: .45em; margin: 0; padding-left: 1.25em; list-style: disc outside; }
+ol.list { list-style-type: decimal; }
+.list li { padding-left: .2em; }
+.list li::marker { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.itemEnter::marker { animation: marker .42s cubic-bezier(.2, .7, .3, 1) backwards; }
+@keyframes marker { from { color: transparent; } }
+.inlineCode { padding: .08em .36em; border: 1px solid var(--border-subtle); border-radius: 6px; background: var(--surface-muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .84em; letter-spacing: 0; }
+.cite { white-space: nowrap; }
+
+.codeBlock { min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 14px; background: var(--surface-muted); }
+.codeHeader { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 4px 4px 4px 14px; border-bottom: 1px solid var(--border-subtle); color: var(--text-muted); font-size: var(--text-xs); }
+.codeCopy { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border: 0; border-radius: var(--radius-pill); background: transparent; color: var(--text-secondary); font: inherit; font-size: var(--text-xs); cursor: pointer; }
+@media (hover: hover) and (pointer: fine) { .codeCopy:hover { background: color-mix(in oklab, var(--foreground) 6%, transparent); color: var(--foreground); } }
+.pre { margin: 0; padding: 12px 14px 14px; overflow-x: auto; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .8125rem; line-height: 1.6; letter-spacing: 0; }
+.codeLine { display: block; white-space: pre; }
+
+/* A zero width anchor, so the dot never wraps alone or shifts text when it leaves. */
+.waiting { position: relative; display: inline-block; width: 0; height: 1em; vertical-align: baseline; }
+.waiting > span { position: absolute; bottom: .18em; left: .36em; width: .4em; height: .4em; border-radius: 50%; background: var(--text-muted); animation: breathe 1.3s ease-in-out infinite; }
+@keyframes breathe { 50% { opacity: .3; } }
+
+.iconSlot { display: inline-grid; place-items: center; width: 14px; height: 14px; }
+.iconSlot > span { display: grid; grid-area: 1 / 1; place-items: center; }
+.iconSlot svg { width: 14px; height: 14px; stroke-width: 1.75; }
+.swap { display: inline-grid; }
+.swap > span { grid-area: 1 / 1; opacity: 0; transition: opacity var(--duration-fast) var(--ease-standard); }
+.swap > span[data-on] { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .enter, .itemEnter::marker, .shimmer, .waiting > span { animation: none; }
+  .shimmer { background: none; color: var(--text-muted); }
+}

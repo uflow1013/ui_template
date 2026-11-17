@@ -1,6 +1,6 @@
 import type { ComponentGroupId } from "./example-types";
 
-// Pro components available in the project that have no dedicated showcase entry yet.
+// Additional Pro components in the local registry, with lazy previews in arc-demos.
 export const arcProCatalog = [
   ["action-morph", "actions", "变形操作按钮", "Action morph", "在一个按钮内切换操作及其结果。", "ActionMorph"],
   ["activity-rings", "data", "活动圆环", "Activity rings", "用同心圆环比较多个目标的完成度。", "ActivityRings"],
