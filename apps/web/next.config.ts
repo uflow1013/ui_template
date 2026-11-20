@@ -5,9 +5,9 @@ const staticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true";
 
 const nextConfig: NextConfig = {
   output: staticExport ? "export" : undefined,
-  // Keep authentication routes and Proxy out of the public static export.
+  // Each mode has its own login page; server sessions and Proxy stay server-only.
   pageExtensions: staticExport
-    ? ["tsx", "ts", "jsx", "js"]
+    ? ["static.tsx", "static.ts", "tsx", "ts", "jsx", "js"]
     : ["server.tsx", "server.ts", "tsx", "ts", "jsx", "js"],
   trailingSlash: true,
   basePath,

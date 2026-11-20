@@ -13,9 +13,13 @@ pnpm dev
 
 Web 首次启动时，如果没有配置 `CHENGXU_PASSWORD`，会自动生成密码并写入忽略提交的 `apps/web/.env.local`。用该密码在 `/login` 登录。自行配置时可用任意字符，长度为 2 至 32 个 Unicode 字符。修改密码后重启服务。启动脚本也会在缺少 `CHENGXU_SESSION_SECRET` 时生成会话签名密钥。
 
-推送到 `main` 后，GitHub Actions 自动构建公开的静态预览并部署到 [GitHub Pages](https://uflow1013.github.io/ui_template/)。仓库设置中的 Pages 来源请选择 **GitHub Actions**；项目路径由 `actions/configure-pages` 自动传给 Next.js。静态预览不包含密码登录、会话验证或退出登录入口，所有演示页面均可公开访问。本地可用 `NEXT_PUBLIC_BASE_PATH=/ui_template pnpm build:pages` 生成 `apps/web/out/`。
+推送到 `main` 后，GitHub Actions 自动构建静态预览并部署到 [GitHub Pages](https://uflow1013.github.io/ui_template/)。仓库设置中的 Pages 来源请选择 **GitHub Actions**；项目路径由 `actions/configure-pages` 自动传给 Next.js。
 
-需要密码保护时，在 Node.js 服务器上运行 `pnpm build` 和 `pnpm --filter @template/web start`，并使用 HTTPS 和同一组服务端环境变量。默认构建保留登录、会话验证和退出登录；不要为服务器构建设置 `NEXT_PUBLIC_STATIC_EXPORT=true`。GitHub Actions 同时验证服务器构建与静态导出。
+Pages 使用 Arc 登录页提供简单的浏览器端访问遮挡。在仓库 **Settings → Secrets and variables → Actions** 中设置 repository secret `PAGES_PASSWORD`；构建脚本只把其 SHA-256 校验值写入前端，源码中不保存密码明文。登录状态在当前标签页会话中保存，刷新和站内导航无需重新输入，退出后需要重新登录。修改 secret 后需重新运行 Pages 部署才会生效。此方式适合预览入口遮挡，不属于服务端访问控制。
+
+本地可用 `PAGES_PASSWORD='你的预览密码' NEXT_PUBLIC_BASE_PATH=/ui_template pnpm build:pages` 生成 `apps/web/out/`。缺少密码时静态构建会报错。PR 构建使用独立的检查密码，不读取生产 secret。
+
+需要服务端密码验证时，在 Node.js 服务器上运行 `pnpm build` 和 `pnpm --filter @template/web start`，并使用 HTTPS 和同一组服务端环境变量。默认构建保留登录、会话验证和退出登录；不要为服务器构建设置 `NEXT_PUBLIC_STATIC_EXPORT=true`。GitHub Actions 同时验证服务器构建与静态导出。
 
 移动端扫码预览：`pnpm dev:mobile`（Expo Go，需匹配 SDK 57，手机和电脑同一 Wi-Fi）。自定义开发客户端使用 `pnpm dev:mobile:client`；本地构建并启动 iOS / Android：`pnpm mobile:ios` / `pnpm mobile:android`，需要 Xcode 或 Android SDK。浏览器辅助预览：`pnpm mobile:web`（`http://localhost:8081`）。兼容版本、目录与构建说明见 [移动端文档](apps/mobile/README.md)。
 

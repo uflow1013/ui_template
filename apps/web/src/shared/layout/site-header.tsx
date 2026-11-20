@@ -5,6 +5,7 @@ import { Button } from "@/shared/arc/button/button";
 import { DropdownMenu } from "@/shared/arc/dropdown-menu/dropdown-menu";
 import { ArcProvider } from "@/shared/arc/lib/arc-provider";
 import { LOGOUT_PATH } from "@/shared/auth/paths";
+import { clearStaticAccess, staticLoginHref } from "@/shared/auth/static-access";
 import { useThemeEditor } from "@/shared/providers/theme-provider";
 import { themes } from "@template/design-tokens/themes";
 import { Check, LogOut, Moon, Sun } from "lucide-react";
@@ -60,7 +61,22 @@ export function ThemeMenu({ showPreviewStatus = false }: { showPreviewStatus?: b
 }
 
 export function LogoutButton() {
-  if (process.env.NEXT_PUBLIC_STATIC_EXPORT === "true") return null;
+  if (process.env.NEXT_PUBLIC_STATIC_EXPORT === "true") {
+    return <Button
+      aria-label="退出登录"
+      title="退出登录"
+      type="button"
+      variant="ghost"
+      size="sm"
+      className="min-h-11! min-w-11! px-0!"
+      onClick={() => {
+        clearStaticAccess();
+        window.location.replace(staticLoginHref());
+      }}
+    >
+      <LogOut aria-hidden="true" size={17} strokeWidth={1.75} />
+    </Button>;
+  }
 
   return <form action={logoutPath} method="post">
     <Button aria-label="退出登录" title="退出登录" type="submit" variant="ghost" size="sm" className="min-h-11! min-w-11! px-0!">

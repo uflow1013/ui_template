@@ -34,10 +34,11 @@ jobs:
       - name: Configure GitHub Pages
         id: pages
         uses: actions/configure-pages@v5
-      - name: Build public static preview
+      - name: Build static preview with password entry
         run: pnpm build:pages
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          PAGES_PASSWORD: ${{ secrets.PAGES_PASSWORD }}
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:

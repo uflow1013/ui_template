@@ -29,3 +29,4 @@ jobs:
       - run: pnpm build:pages
         env:
           NEXT_PUBLIC_BASE_PATH: /ui_template
+          PAGES_PASSWORD: ci-preview-check

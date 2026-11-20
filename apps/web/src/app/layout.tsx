@@ -1,4 +1,5 @@
 import { AppFrame } from "@/shared/layout/app-frame";
+import { StaticAccessGate } from "@/shared/auth/static-access-gate";
 import { ThemeProvider } from "@/shared/providers/theme-provider";
 import { tokens, tokenVariables } from "@template/design-tokens";
 import {
@@ -42,7 +43,9 @@ export default function RootLayout({
       </head>
       <body className="m-0 h-dvh overflow-hidden bg-background text-[length:var(--type-size-md)] leading-[var(--type-line-body)] text-foreground">
         <ThemeProvider>
-          <AppFrame>{children}</AppFrame>
+          <StaticAccessGate>
+            <AppFrame>{children}</AppFrame>
+          </StaticAccessGate>
         </ThemeProvider>
       </body>
     </html>
