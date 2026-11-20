@@ -26,3 +26,6 @@ jobs:
       - run: pnpm test:themes
       - run: pnpm --filter @template/web lint
       - run: pnpm build
+      - run: pnpm build:pages
+        env:
+          NEXT_PUBLIC_BASE_PATH: /ui_template

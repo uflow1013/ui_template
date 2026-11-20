@@ -13,6 +13,7 @@
     "mobile:web": "pnpm tokens:build && pnpm --filter @template/mobile web",
     "build:mobile": "pnpm tokens:build && pnpm --filter @template/mobile export",
     "build": "pnpm tokens:build && pnpm --filter @template/web build",
+    "build:pages": "pnpm tokens:build && pnpm --filter @template/web build:pages",
     "lint": "pnpm --filter './apps/*' lint",
     "typecheck": "pnpm --filter './apps/*' typecheck",
     "test:themes": "node --test packages/design-tokens/tests/themes.test.mjs"

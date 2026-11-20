@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { mediaUrl } from "../lib/media";
 import { GeminiColorMark, OpenaiMark, XaiMark } from "./image-generation-marks";
 
 /** A model the person can pick. `mark` is a 16px provider logo. */
@@ -69,7 +70,7 @@ export const imageGenerationSuggestions = [
 ];
 
 type Photo = { src: string; alt: string };
-const p = (id: string, alt: string): Photo => ({ src: `/media/photos/${id}.jpg`, alt });
+const p = (id: string, alt: string): Photo => ({ src: mediaUrl(`/media/photos/${id}.jpg`), alt });
 
 /** Sample results, grouped so a prompt about a lake gets lakes. Real photos from the shared media set. */
 const themes: { words: string[]; photos: Photo[] }[] = [

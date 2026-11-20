@@ -60,6 +60,8 @@ export function ThemeMenu({ showPreviewStatus = false }: { showPreviewStatus?: b
 }
 
 export function LogoutButton() {
+  if (process.env.NEXT_PUBLIC_STATIC_EXPORT === "true") return null;
+
   return <form action={logoutPath} method="post">
     <Button aria-label="退出登录" title="退出登录" type="submit" variant="ghost" size="sm" className="min-h-11! min-w-11! px-0!">
       <LogOut aria-hidden="true" size={17} strokeWidth={1.75} />

@@ -86,6 +86,8 @@ interface Morph {
 /* ---------------------------------------------------------------------------------------------- */
 /* Sample content. Brand marks are sample content, not endorsements. */
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/$/, "") ?? "";
+
 export const linkUnfurlSamples: LinkUnfurlPreview[] = [
   {
     url: "https://www.airbnb.com/rooms/48213907",
@@ -94,7 +96,7 @@ export const linkUnfurlSamples: LinkUnfurlPreview[] = [
     description: "Entire loft for 8 guests. 4 bedrooms, a shared terrace, and a 6 minute walk to the tram.",
     image: mediaUrl("/media/photos/lisbon-rooftops.jpg"),
     imageAlt: "Terracotta rooftops of Lisbon stepping down to the river",
-    favicon: "/block-logos/airbnb-color.svg",
+    favicon: `${basePath}/block-logos/airbnb-color.svg`,
   },
   {
     url: "https://www.figma.com/design/q8Rk2/Offsite-itinerary",
@@ -103,7 +105,7 @@ export const linkUnfurlSamples: LinkUnfurlPreview[] = [
     description: "Design file with 14 frames. Edited by Sofia Ramirez 2 hours ago.",
     image: mediaUrl("/media/photos/lisbon-tram.jpg"),
     imageAlt: "A yellow tram climbing a narrow Lisbon street",
-    favicon: "/block-logos/figma-color.svg",
+    favicon: `${basePath}/block-logos/figma-color.svg`,
   },
   {
     url: "https://open.spotify.com/playlist/3cEYpjA9oz9GiPac4AsH4n",
@@ -112,7 +114,7 @@ export const linkUnfurlSamples: LinkUnfurlPreview[] = [
     description: "Playlist by Daniel Kim. 42 songs, 2 hr 51 min.",
     image: mediaUrl("/media/photos/sea-at-dusk.jpg"),
     imageAlt: "The sea at dusk under a soft pink sky",
-    favicon: "/block-logos/spotify-color.svg",
+    favicon: `${basePath}/block-logos/spotify-color.svg`,
     duration: "2:51:06",
   },
 ];

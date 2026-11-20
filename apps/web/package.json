@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "node scripts/with-chengxu-env.mjs dev --port 3399",
     "build": "next build",
+    "build:pages": "node scripts/build-pages.mjs",
     "start": "node scripts/with-chengxu-env.mjs start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
